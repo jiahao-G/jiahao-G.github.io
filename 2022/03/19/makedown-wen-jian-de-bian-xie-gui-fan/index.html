@@ -4,8 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="书写博客主要代码介绍, 郭家豪のblog">
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex">
+    <meta name="keywords" content="makedown文件的编写规范, 郭家豪のblog">
+    <meta name="description" content="简介关于makedown，百度上的介绍如下：
+Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语：John Gruber）。 它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者HTML）文档。这种语言">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>书写博客主要代码介绍 | 郭家豪のblog</title>
+    <title>makedown文件的编写规范 | 郭家豪のblog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -309,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">书写博客主要代码介绍</h1>
+                    <h1 class="description center-align post-title">makedown文件的编写规范</h1>
                 </div>
             </div>
         </div>
@@ -446,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-03-07
+                    2022-03-19
                 </div>
                 
 
@@ -470,19 +471,54 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo generate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo deploy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+                <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>关于makedown，百度上的介绍如下：</p>
+<p>Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语：John Gruber）。 它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者HTML）文档。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。由于Markdown的轻量化、易读易写特性，并且对于图片，图表、数学式都有支持，许多网站都广泛使用Markdown来撰写帮助文档或是用于论坛上发表消息。</p>
+<p>hexo博客的编写便是使用了makedown语言，产生的文件的后缀符为.md。本文简单地介绍了makedown语法编写博客文章的一些具体语法。</p>
+<h1 id="基础语法介绍"><a href="#基础语法介绍" class="headerlink" title="基础语法介绍"></a>基础语法介绍</h1><h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>在想要设置为标题的文字前方加#（注意#和文字中间空一格）。#个数越多意味着标题级数越高，一级标题便是一个#号，二三…级标题以此类推。makedown共支持6级标题。</p>
+<h2 id="段落"><a href="#段落" class="headerlink" title="段落"></a>段落</h2><p>段落的编写极其简单，只需要每段内容前后空出一行即可。</p>
+<h2 id="区块引用"><a href="#区块引用" class="headerlink" title="区块引用"></a>区块引用</h2><p>当作者写文章时想要对某些内容进行强调显示时，makedown使用特殊符号” &gt; “（同样的，和具体内容之间需要空一格），下面就举一个例子，效果如下：</p>
+<blockquote>
+<p>这是引用段落，会被高亮显示</p>
+</blockquote>
+<h2 id="超链接"><a href="#超链接" class="headerlink" title="超链接"></a>超链接</h2><p>超链接的书写规范包括两部分，首先是一个中括号【】，注意要用英文中的中括号，括号里显示文章中要显示的超链接文字，之后紧挨着小括号()，小括号里面是要打开的网址。下面举个百度主页的例子：<br><a target="_blank" rel="noopener" href="https://www.baidu.com/?tn=80035161_1_dg">百度</a></p>
+<h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2><p>图片的插入法与超链接相比，仅在超链接的表达方法前面加一个感叹号，不再举例子赘述。</p>
+<h2 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h2><p>无序列表在文字前方加一星号（由于直接打出符号会被识别成斜体内容，故之后都用汉字表示星号，其实，+、-都可以，但是星号最常用，比如举例如下：</p>
+<ul>
+<li>无序列表项</li>
+<li>无序列表项</li>
+<li>无序列表项</li>
+</ul>
+<p>同时，makedown也支持无序列表的嵌套，但是下一级的嵌套需要空格，最好是空三格，举例如下：</p>
+<ul>
+<li>无序列表项<ul>
+<li>第二级无序列表项</li>
+<li>第二级无序列表项</li>
+</ul>
+</li>
+<li>无序列表项</li>
+</ul>
+<h2 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h2><p>有序列表与无序列表基本相同，只需要把星号换成数字加点（如：1.），举例如下：</p>
+<ol>
+<li>第一项</li>
+<li>第二项</li>
+<li>第三项</li>
+</ol>
+<p>同时，有序列表项也可以嵌套，语法与有序列表相同。</p>
+<ol>
+<li>有序列表项1<ol>
+<li>有序列表项11</li>
+<li>有序列表项12</li>
+</ol>
+</li>
+<li>有序列表项3</li>
+</ol>
+<h2 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h2><p>分割线可以用连续的三个*或者三个-表述，不再赘述。</p>
+<h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><p>字体除了正常的之外，其它常见的有粗体及斜体。斜体使用星号开启，然后跟着文字内容，最后也是星号结束；粗体和斜体类似，只不过用两个星号开启和结束。下面举例：<br><em>这里是斜体内容</em><br><strong>这里是粗体内容</strong></p>
+<h2 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h2><p>行内代码：使用单个反引号进行包裹行内代码；<br>多行代码：可以通过三个反引号将代码包裹起来，反引号单独占一行，多一行单引号后面可以需要添加编程语言，例如：</p>
+<pre class="line-numbers language-none"><code class="language-none">int main()
+&#123; printf(&quot;&quot;)
+return 0&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h1 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h1><p>由于博客文章本就是用makedown来编写的，在后台的代码也会自动识别成相应的效果显示，所以无法在文章中具体到代码和效果的对比。希望读者能在有限的文字中了解到书写规范。</p>
 
                 
             </div>
@@ -509,7 +545,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://jiahao-g.github.io/2022/03/07/hello-world/">https://jiahao-g.github.io/2022/03/07/hello-world/</a>
+                    <a href="https://jiahao-g.github.io/2022/03/19/makedown-wen-jian-de-bian-xie-gui-fan/">https://jiahao-g.github.io/2022/03/19/makedown-wen-jian-de-bian-xie-gui-fan/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -722,9 +758,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/03/19/makedown-wen-jian-de-bian-xie-gui-fan/">
                     <div class="card-image">
@@ -742,9 +779,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-19
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-19
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -753,6 +790,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -768,7 +806,7 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
                 <a href="/2022/03/07/hello-world/">
@@ -798,7 +836,6 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
