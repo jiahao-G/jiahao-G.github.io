@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>pythhon之巧借计算机计算圆周率</title>
+      <link href="/2022/03/20/pythhon-zhi-qiao-jie-ji-suan-ji-ji-suan-yuan-zhou-lu/"/>
+      <url>/2022/03/20/pythhon-zhi-qiao-jie-ji-suan-ji-ji-suan-yuan-zhou-lu/</url>
+      
+        <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>π (圆周率)是数学和物理学普遍存在的常数之一,它定义了一个标准圆周长与直径之比。众所周知，圆周率是一个无理数，即无限不循环小数。精确求解圆周率是几何学、物理学和很多工程学科的关键。<br>对π的精确求解曾经是数学历史上直难以解决的问题之 ，因为π无法用任可精确公式表示，在电子计算机出现以前，π只能通过一些近似公式的求解得到，直到1948年，人类才以人工计算方式得到π的808位精确小数。<br>随着计算机的出现，数学家找到了求解π的另类方法:蒙特卡罗(Monte Carto)方法，又称随机抽样或统计试验方法。该方法属于计算数学的一个分支， 由于其能够真实地模拟实际物理过程，因此，解决问题与实际非常符合，可以得到很圆满的结果。蒙特卡罗方法广泛应用于数学、物理学和工程领域。<br>当所要求解的问题是某种事件出现的概率，或者是某个随机交量的期望值时，它们可以通过某种“试验”的方法，得到这种事件出现的频率，或者这个随机变数的平均值，并用它们作为问题的解。这是蒙特卡罗方法的基本思想。</p><h1 id="蒙特卡罗法简介"><a href="#蒙特卡罗法简介" class="headerlink" title="蒙特卡罗法简介"></a>蒙特卡罗法简介</h1><p>应用蒙特卡罗方法求解π的基本步骤如下:随机向如下图所示的单位正方形和圆结构，抛酒大量“飞镖”点，计算每个点到圆心的距离从而判断该点在圆内或者圆外，用圆内的点数除以总点数就是π&#x2F;4值。随机点数量越大，越充分覆盖整个图形，计算得到的π值越精确。实际上，这个方法的思想是利用离散点值表示图形的面积，通过面积比例来求解π值。<br><img src="https://static01.imgkr.com/temp/0deae0b1ed7e4cb684ed3867b9d22bef.jpg"><br>为了简化计算，一般利用图形的1&#x2F;4来求解，如下图<br><img src="https://static01.imgkr.com/temp/fb58982173434f9cb6a3fc2f3fc07432.jpg"></p><h1 id="python求解"><a href="#python求解" class="headerlink" title="python求解"></a>python求解</h1><p>程序如下</p><pre class="line-numbers language-none"><code class="language-none">from random import random #引入random库from math import sqrt #引入平方根函数from time import perf_counter #引入计时函数DARTS&#x3D;1000 #拟定抛点数，多多益善，但过多会极大延长程序运行时间hits&#x3D;0.0perf_counter() #计时for i in range(1,DARTS+1):    x,y&#x3D;random(),random() #生成随机坐标    dist&#x3D;sqrt(x**2+y**2) #计算坐标离原点的距离    if dist &lt;&#x3D;1.0:        hits&#x3D;hits+1  #圆心内的计数pi&#x3D;4*(hits&#x2F;DARTS)print(&quot;PI值是&#123;&#125;。&quot;.format(pi))print(&quot;&#123;:.5f&#125;s&quot;.format(perf_counter()))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>运行结果如图：<br><img src="https://static01.imgkr.com/temp/277c6926a93d45b6bb7edc99f9b65052.png"><br>从上至下以此为抛点数为1000、10000、2^15、2^20，可见随着抛点数增加，计算结果趋近于准确值，但运行时间也越来越长。当抛点数达到2^25时，计算结果仍为3.141左右，但是运行时间却高达35-60s。这样的程序明显是耗费时间且没必要的，故应该慎重选择抛点数。</p><h1 id="结束语（感悟）"><a href="#结束语（感悟）" class="headerlink" title="结束语（感悟）"></a>结束语（感悟）</h1><p>计算圆周率的这个程序，是我在一本自学python的教程中学到的，然而当时却遇到了很多问题，最大的问题莫过于计时函数无法运行，书中介绍的计时函数表达为<code>clock()</code>，可当我正式运行的时候，却总是卡在这一步，后来翻找了很多关于python计时函数的介绍，在一篇介绍计时函数发展史中找到了答案。<br>原来在最新的版本中，<code>clock()</code>已被<code>perf_counter()</code>替代。修改之后的程序在最新版本中的python才可以运行成功。<br>所以，作为一个在校学习的大学生，现有的课本知识确实很经典，但是一些新兴的专业知识或者技术也在悄然发展，而这些便需要我们阅读课外读物，上手实践才能逐步掌握。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>hexo博客搭建及初始化</title>
       <link href="/2022/03/19/hexo-bo-ke-da-jian-ji-chu-shi-hua/"/>
       <url>/2022/03/19/hexo-bo-ke-da-jian-ji-chu-shi-hua/</url>
