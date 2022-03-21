@@ -479,38 +479,38 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>MATLAB是matrix和laboratory两个词的组合，意为矩阵工厂或者矩阵实验室，是一种著名的商业数学软件，可用于数据分析、无线通信、深度学习、图像处理与计算机视觉、信号处理、量化金融与风险管理、机器人，控制系统等领域。本文就简单地介绍了利用matlab进行数据处理，主要关注数据之间的关系与二维图形的绘制。</p>
-<h1 id="绘图介绍与举例分析"><a href="#绘图介绍与举例分析" class="headerlink" title="绘图介绍与举例分析"></a>绘图介绍与举例分析</h1><h2 id="绘图函数介绍"><a href="#绘图函数介绍" class="headerlink" title="绘图函数介绍"></a>绘图函数介绍</h2><p>matlab中带有形形色色的绘图函数，常见的有plot、mesh、surf、hist等，它们分别代表绘制二位线图、网格曲面图、曲面图和直方图。plot函数一般就可以解决普通的数值分析问题或者高级的信号处理问题，而后三者常用于高级的统计学或者数据分析中，因此我们重点关注plot函数的用法规则。<br>matlab命令行输入<code>help plot</code>就可以得到官方对于plot的解释。<br><img src="https://static01.imgkr.com/temp/e5e24ea64622468fb5f64db0a5f19eb1.png"><br>图中可见，第一大段文字为对本函数的基本介绍，后面的几行是其常见的运用规则（语法），我们可以从中得到下面几种注意事项：</p>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>MATLAB是matrix和laboratory两个词的组合，意为矩阵工厂或者矩阵实验室，是一种著名的商业数学软件，可用于数据分析、无线通信、深度学习、图像处理与计算机视觉、信号处理、量化金融与风险管理、机器人，控制系统等领域。本文就简单地介绍了利用matlab进行数据处理，主要关注数据之间的关系与二维图形的绘制。</p>
+<h2 id="绘图介绍与举例分析"><a href="#绘图介绍与举例分析" class="headerlink" title="绘图介绍与举例分析"></a>绘图介绍与举例分析</h2><h3 id="绘图函数介绍"><a href="#绘图函数介绍" class="headerlink" title="绘图函数介绍"></a>绘图函数介绍</h3><p>matlab中带有形形色色的绘图函数，常见的有plot、mesh、surf、hist等，它们分别代表绘制二位线图、网格曲面图、曲面图和直方图。plot函数一般就可以解决普通的数值分析问题或者高级的信号处理问题，而后三者常用于高级的统计学或者数据分析中，因此我们重点关注plot函数的用法规则。<br>matlab命令行输入<code>help plot</code>就可以得到官方对于plot的解释。<br><img src="https://static01.imgkr.com/temp/e5e24ea64622468fb5f64db0a5f19eb1.png"><br>图中可见，第一大段文字为对本函数的基本介绍，后面的几行是其常见的运用规则（语法），我们可以从中得到下面几种注意事项：</p>
 <ul>
 <li>绘图时，横坐标数据（X）和纵坐标数据（Y）必须一致（不然怎么一一对应呢）</li>
 <li>当绘图数据为离散数据时，plot也会绘制出连续图。</li>
 </ul>
-<h2 id="plot函数的常见搭配"><a href="#plot函数的常见搭配" class="headerlink" title="plot函数的常见搭配"></a>plot函数的常见搭配</h2><p>在matlab的help文档中，对于plot函数还引申了它的常用搭配。其中title表示对绘制出的图形命名，xlabel表示对X轴变量命名，ylabel表示对Y轴变量命名，xlim表示对X轴所代表的数据取有用区间，ylim表示对Y轴所代表的数据取有用区间。</p>
-<h2 id="举例分析"><a href="#举例分析" class="headerlink" title="举例分析"></a>举例分析</h2><h3 id="普通三角函数"><a href="#普通三角函数" class="headerlink" title="普通三角函数"></a>普通三角函数</h3><p>代码</p>
-<pre class="line-numbers language-none"><code class="language-none">x&#x3D;0:pi&#x2F;100:2*pi; #X取值从0到2Π，取值间隔为Π&#x2F;100
-y&#x3D;sin(x); #函数关系
-plot(x,y); #绘图
-title(&quot;sin函数图像&quot;); #图像命名
-xlabel(&quot;x&quot;); #X轴命名（标注）
-ylabel(&quot;y&quot;); #Y轴命名（标注）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="plot函数的常见搭配"><a href="#plot函数的常见搭配" class="headerlink" title="plot函数的常见搭配"></a>plot函数的常见搭配</h3><p>在matlab的help文档中，对于plot函数还引申了它的常用搭配。其中title表示对绘制出的图形命名，xlabel表示对X轴变量命名，ylabel表示对Y轴变量命名，xlim表示对X轴所代表的数据取有用区间，ylim表示对Y轴所代表的数据取有用区间。</p>
+<h3 id="举例分析"><a href="#举例分析" class="headerlink" title="举例分析"></a>举例分析</h3><h4 id="普通三角函数"><a href="#普通三角函数" class="headerlink" title="普通三角函数"></a>普通三角函数</h4><p>代码</p>
+<pre class="line-numbers language-none"><code class="language-none">x&#x3D;0:pi&#x2F;100:2*pi; %X取值从0到2Π，取值间隔为Π&#x2F;100
+y&#x3D;sin(x); %函数关系
+plot(x,y); %绘图
+title(&quot;sin函数图像&quot;); %图像命名
+xlabel(&quot;x&quot;); %X轴命名（标注）
+ylabel(&quot;y&quot;); %Y轴命名（标注）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>结果如下<br><img src="https://static01.imgkr.com/temp/9fd6562201e24037ba17dc6c701668b5.png"></p>
-<h3 id="行驻波绘图"><a href="#行驻波绘图" class="headerlink" title="行驻波绘图"></a>行驻波绘图</h3><p>行波与驻波是在大学学习中常见的几个概念，无论是物理，或者深入的电磁波、微波、雷达等学科中也常常使用。<br>在介绍行驻波绘图前，我们首先拓展一下关于plot函数的用法，当代码中出现subplot这种函数字样时，表明将几张图像同时绘制到一张图上显示。比如<code>subplot(2,2,1)</code>表示一张2行2列的图像集合，而本图像绘制在第1个位置。</p>
-<pre class="line-numbers language-none"><code class="language-none">z&#x3D;0:0.1:8*pi; #Z的取值由0到Π，间隔为0.1
-for t&#x3D;1:5000 # 时间上取值，也表明循环次数
-    u&#x3D;cos(0.05*t-z) #行波表达式
+<h4 id="行驻波绘图"><a href="#行驻波绘图" class="headerlink" title="行驻波绘图"></a>行驻波绘图</h4><p>行波与驻波是在大学学习中常见的几个概念，无论是物理，或者深入的电磁波、微波、雷达等学科中也常常使用。<br>在介绍行驻波绘图前，我们首先拓展一下关于plot函数的用法，当代码中出现subplot这种函数字样时，表明将几张图像同时绘制到一张图上显示。比如<code>subplot(2,2,1)</code>表示一张2行2列的图像集合，而本图像绘制在第1个位置。</p>
+<pre class="line-numbers language-none"><code class="language-none">z&#x3D;0:0.1:8*pi; %Z的取值由0到Π，间隔为0.1
+for t&#x3D;1:5000  %时间上取值，也表明循环次数
+    u&#x3D;cos(0.05*t-z) %行波表达式
     subplot(2,1,1) 
-    plot(u) #行波绘图，绘制在第一个
+    plot(u) %行波绘图，绘制在第一个
     title(&quot;行波&quot;)
-    ylim([-1 1]) #绘图标注
-    i&#x3D;sin(z)*cos(0.05*t) #驻波表达式
+    ylim([-1 1]) %绘图标注
+    i&#x3D;sin(z)*cos(0.05*t) %驻波表达式
     subplot(2,1,2) 
-    plot(i) #驻波绘图，绘制在第一个
+    plot(i) %驻波绘图，绘制在第一个
     title(&quot;驻波&quot;)
-    ylim([-1 1]) #绘图标注
-    pause(0.001) #时间暂停，以此显示变化的函数的动态过程
+    ylim([-1 1]) %绘图标注
+    pause(0.001) %时间暂停，以此显示变化的函数的动态过程
 end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>最终结果如下<br><img src="https://static01.imgkr.com/temp/9b08e46c5872438c8fecac82da10646f.png"><br><img src="https://static01.imgkr.com/temp/384eca5c1c994d2c9a7d87435576e129.png"><br><img src="https://static01.imgkr.com/temp/c1de21c64f9842638ff14680b767805a.png"><br><img src="https://static01.imgkr.com/temp/48986f5b382640b89cea49612399fbf8.png"></p>
-<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>从以上的具体代码看，matlab并不像C语言那样有过于严格的函数体或者格式要求，并且有非常多的内置函数，这在使用时非常方便。而且，matlab的众多工具箱使得其在很多复杂的学科仿真上有重大运用。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>从以上的具体代码看，matlab并不像C语言那样有过于严格的函数体或者格式要求，并且有非常多的内置函数，这在使用时非常方便。而且，matlab的众多工具箱使得其在很多复杂的学科仿真上有重大运用。</p>
 
                 
             </div>
@@ -750,18 +750,17 @@ end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/03/21/matlab-zhi-ji-chu-hui-tu-xing-zhu-bo/">
+                <a href="/2022/03/21/matlab-zhi-sui-ji-xin-hao-fen-xi-duo-pin-lu-zheng-xian-xin-hao-die-jia-zao-sheng-tong-guo-di-tong-lu-bo-qi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="matlab之基础绘图（行驻波）">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="matlab之仿真信号在高斯信道中的传播过程">
                         
-                        <span class="card-title">matlab之基础绘图（行驻波）</span>
+                        <span class="card-title">matlab之仿真信号在高斯信道中的传播过程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -771,9 +770,9 @@ end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-21
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-21
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -786,7 +785,6 @@ end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     

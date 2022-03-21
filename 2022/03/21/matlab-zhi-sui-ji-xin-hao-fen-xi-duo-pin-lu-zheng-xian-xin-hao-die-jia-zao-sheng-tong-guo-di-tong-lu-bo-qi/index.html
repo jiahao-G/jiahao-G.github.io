@@ -4,9 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="makedown文件的编写规范, 郭家豪のblog">
-    <meta name="description" content="简介关于makedown，百度上的介绍如下：
-Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语：John Gruber）。 它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者HTML）文档。这种语言">
+    <meta name="keywords" content="matlab之仿真信号在高斯信道中的传播过程, 郭家豪のblog">
+    <meta name="description" content="前言matlab的数据分析功能绝不仅仅是绘制一个图像以供直观分析那样简单，matlab自带的很多内置函数赋予了其在众多现代学科仿真中不可替代的作用。本文就利用了matlab中的一些有关“信号与系统”学科（比如傅里叶变换，滤波器产生等）的内置">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +17,7 @@ Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语�
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>makedown文件的编写规范 | 郭家豪のblog</title>
+    <title>matlab之仿真信号在高斯信道中的传播过程 | 郭家豪のblog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -310,12 +309,12 @@ Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语�
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">makedown文件的编写规范</h1>
+                    <h1 class="description center-align post-title">matlab之仿真信号在高斯信道中的传播过程</h1>
                 </div>
             </div>
         </div>
@@ -431,8 +430,8 @@ Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语�
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/hexo%E5%8D%9A%E5%AE%A2/">
-                                <span class="chip bg-color">hexo博客</span>
+                            <a href="/tags/matlab/">
+                                <span class="chip bg-color">matlab</span>
                             </a>
                         
                     </div>
@@ -443,8 +442,8 @@ Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语�
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" class="post-category">
-                                博客搭建
+                            <a href="/categories/matlab/" class="post-category">
+                                matlab
                             </a>
                         
                     </div>
@@ -456,7 +455,7 @@ Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语�
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-03-19
+                    2022-03-21
                 </div>
                 
 
@@ -480,54 +479,90 @@ Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语�
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>关于makedown，百度上的介绍如下：</p>
-<p>Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语：John Gruber）。 它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者HTML）文档。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。由于Markdown的轻量化、易读易写特性，并且对于图片，图表、数学式都有支持，许多网站都广泛使用Markdown来撰写帮助文档或是用于论坛上发表消息。</p>
-<p>hexo博客的编写便是使用了makedown语言，产生的文件的后缀符为.md。本文简单地介绍了makedown语法编写博客文章的一些具体语法。</p>
-<h2 id="基础语法介绍"><a href="#基础语法介绍" class="headerlink" title="基础语法介绍"></a>基础语法介绍</h2><h3 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h3><p>在想要设置为标题的文字前方加#（注意#和文字中间空一格）。#个数越多意味着标题级数越高，一级标题便是一个#号，二三…级标题以此类推。makedown共支持6级标题。</p>
-<h3 id="段落"><a href="#段落" class="headerlink" title="段落"></a>段落</h3><p>段落的编写极其简单，只需要每段内容前后空出一行即可。</p>
-<h3 id="区块引用"><a href="#区块引用" class="headerlink" title="区块引用"></a>区块引用</h3><p>当作者写文章时想要对某些内容进行强调显示时，makedown使用特殊符号” &gt; “（同样的，和具体内容之间需要空一格），下面就举一个例子，效果如下：</p>
-<blockquote>
-<p>这是引用段落，会被高亮显示</p>
-</blockquote>
-<h3 id="超链接"><a href="#超链接" class="headerlink" title="超链接"></a>超链接</h3><p>超链接的书写规范包括两部分，首先是一个中括号【】，注意要用英文中的中括号，括号里显示文章中要显示的超链接文字，之后紧挨着小括号()，小括号里面是要打开的网址。下面举个百度主页的例子：<br><a target="_blank" rel="noopener" href="https://www.baidu.com/?tn=80035161_1_dg">百度</a></p>
-<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p>图片的插入法与超链接相比，仅在超链接的表达方法前面加一个感叹号，不再举例子赘述。</p>
-<h3 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h3><p>无序列表在文字前方加一星号（由于直接打出符号会被识别成斜体内容，故之后都用汉字表示星号，其实，+、-都可以，但是星号最常用，比如举例如下：</p>
-<ul>
-<li>无序列表项</li>
-<li>无序列表项</li>
-<li>无序列表项</li>
-</ul>
-<p>同时，makedown也支持无序列表的嵌套，但是下一级的嵌套需要空格，最好是空三格，举例如下：</p>
-<ul>
-<li>无序列表项<ul>
-<li>第二级无序列表项</li>
-<li>第二级无序列表项</li>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>matlab的数据分析功能绝不仅仅是绘制一个图像以供直观分析那样简单，matlab自带的很多内置函数赋予了其在众多现代学科仿真中不可替代的作用。本文就利用了matlab中的一些有关“信号与系统”学科（比如傅里叶变换，滤波器产生等）的内置函数来分析仿真多音信号在实际信道传输后经过低通滤波器前后的时频域分析。</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><ul>
+<li>为了尽可能趋近实际地仿真信号在信道中的传播过程，我们采用多音（多频率）正弦信号的叠加作为输入信号，信道可以通过叠加高斯白噪声来进行模拟，最后的低通滤波器便使用最为常见的巴特沃斯滤波器。这样的模拟过程在尽量模拟现实的前提下最大程度降低了仿真过程的实行复杂度。</li>
+<li>线性系统（本过程中指代最终的巴特沃斯低通滤波器）包含叠加性和齐次性两个概念。<ul>
+<li>叠加性指：当几个信号同时输入系统时，系统的响应等于系统对各个输入信号单独作用时响应的叠加，即若𝑥1 (𝑡) → 𝑦1 (𝑡) , 𝑥2 (𝑡) → 𝑦2 (𝑡)，则𝑥1 (𝑡) + 𝑥2 (𝑡) → 𝑦1 (𝑡) + 𝑦2(𝑡)。</li>
+<li>齐次性指：系统的激励乘以非零常数 a 时，系统的响应也相应地乘以常数 a, 即若𝑥1 (𝑡) → 𝑦1 (𝑡)，则𝑎𝑥1 (𝑡) → 𝑎𝑦1 (𝑡)。</li>
+<li>线性系统的重要性质还有积分性、微分性、频率保持性等。</li>
 </ul>
 </li>
-<li>无序列表项</li>
+<li>我们对模拟过程作出假设，最原始的声音信号为1khz的单音信号，其它频率的信号模拟由复用系统、信道噪声和人为等因素造成的干扰。因此，我们最终得到的信号应该是1khz的声音信号。</li>
 </ul>
-<h3 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h3><p>有序列表与无序列表基本相同，只需要把星号换成数字加点（如：1.），举例如下：</p>
-<ol>
-<li>第一项</li>
-<li>第二项</li>
-<li>第三项</li>
-</ol>
-<p>同时，有序列表项也可以嵌套，语法与有序列表相同。</p>
-<ol>
-<li>有序列表项1<ol>
-<li>有序列表项11</li>
-<li>有序列表项12</li>
-</ol>
-</li>
-<li>有序列表项3</li>
-</ol>
-<h3 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h3><p>分割线可以用连续的三个*或者三个-表述，不再赘述。</p>
-<h3 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h3><p>字体除了正常的之外，其它常见的有粗体及斜体。斜体使用星号开启，然后跟着文字内容，最后也是星号结束；粗体和斜体类似，只不过用两个星号开启和结束。下面举例：<br><em>这里是斜体内容</em><br><strong>这里是粗体内容</strong></p>
-<h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><p>行内代码：使用单个反引号进行包裹行内代码；<br>多行代码：可以通过三个反引号将代码包裹起来，反引号单独占一行，多一行单引号后面可以需要添加编程语言，例如：</p>
-<pre class="line-numbers language-none"><code class="language-none">int main()
-&#123; printf(&quot;&quot;)
-return 0&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>由于博客文章本就是用makedown来编写的，在后台的代码也会自动识别成相应的效果显示，所以无法在文章中具体到代码和效果的对比。希望读者能在有限的文字中了解到书写规范。</p>
+<h2 id="仿真"><a href="#仿真" class="headerlink" title="仿真"></a>仿真</h2><h3 id="滤波器产生（注意命名为lowpass，防止后期产生代码错误）"><a href="#滤波器产生（注意命名为lowpass，防止后期产生代码错误）" class="headerlink" title="滤波器产生（注意命名为lowpass，防止后期产生代码错误）"></a>滤波器产生（注意命名为lowpass，防止后期产生代码错误）</h3><pre class="line-numbers language-none"><code class="language-none">function Hd &#x3D; lowpass% 返回离散时间滤波器对象。
+Fs &#x3D; 5000000;  % 采样率
+N  &#x3D; 7;     % 阶数
+Fc &#x3D; 1000;  % 截止频率
+h  &#x3D; fdesign.lowpass(&#39;N,F3dB&#39;, N, Fc, Fs);
+Hd &#x3D; design(h, &#39;butter&#39;); %产生巴特沃斯滤波器<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上述代码中用到了matlab自带的产生巴特沃斯滤波器的内置函数。</p>
+<h3 id="信源与信道模拟"><a href="#信源与信道模拟" class="headerlink" title="信源与信道模拟"></a>信源与信道模拟</h3><pre class="line-numbers language-none"><code class="language-none">Caiyanglv &#x3D; 5e6;  %注意与滤波器采样率相同
+Caiyangdianshu &#x3D; 50000;
+dt &#x3D; 1&#x2F;Caiyanglv;
+Pinglv1 &#x3D; 1000;
+Pinglv2 &#x3D; 2000;
+Pinglv3 &#x3D; 3000;
+t &#x3D; 0:dt:dt*(Caiyangdianshu-1);
+SignalData0 &#x3D; sin(2*pi*Pinglv1*t);
+SignalData1 &#x3D; sin(2*pi*Pinglv2*t);
+SignalData2 &#x3D; sin(2*pi*Pinglv3*t);
+SignalData3 &#x3D; SignalData0+SignalData1+SignalData2;
+SignalData3 &#x3D; awgn(SignalData3,10);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>依然用到了matlab的内置awgn函数，help文档的介绍如下：<br><img src="https://static01.imgkr.com/temp/bd0c8cef0e174d22a03c3f8b411f62b6.png"><br>而我们采取了用法的第一种，被叠加的信号为signaldata3，信噪比（SNR）为10dB。</p>
+<h3 id="输入信号分析"><a href="#输入信号分析" class="headerlink" title="输入信号分析"></a>输入信号分析</h3><pre class="line-numbers language-none"><code class="language-none">figure(1);plot(t*1000,SignalData3)
+title(&#39;输入信号时域波形&#39;)
+xlabel(&#39;时间&#x2F;ms&#39;);
+ylabel(&#39;幅度&#x2F;V&#39;);
+FFT_Data &#x3D; fft(SignalData3,Caiyangdianshu);
+Magnitude &#x3D; 2*sqrt(FFT_Data.*conj(FFT_Data));
+df &#x3D; 1&#x2F;dt&#x2F;Caiyangdianshu;
+f &#x3D; 0:df:(Caiyangdianshu-1)*df;
+figure(2);plot(f&#x2F;1000,Magnitude)
+title(&#39;输入信号频谱&#39;);
+xlabel(&#39;频率&#x2F;kHz&#39;);
+ylabel(&#39;幅值&#x2F;V&#39;);
+xlim([0,10]);
+[Rx,maxlags]&#x3D;xcorr(SignalData3,&#39;unbiased&#39;);
+figure(3);plot(maxlags&#x2F;Caiyanglv*1000,Rx&#x2F;max(Rx));
+title(&#39;输入信号自相关&#39;)
+xlabel(&#39;时延差&#x2F;ms&#39;);
+ylabel(&#39;R(τ)&#39;);
+ylim([-1,1]);
+gl&#x3D;abs(FFT_Data).^2; %功率谱
+figure(4);plot(f&#x2F;1000,gl);
+title(&#39;输入信号功率谱&#39;);
+xlabel(&#39;频率&#x2F;kHz&#39;);
+ylabel(&#39;W&#x2F;Hz&#39;);
+xlim([0,10]);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>相应的，关于fft（快速傅里叶变换）和xcoor（运算相关函数）的help文档介绍如下：<br><img src="https://static01.imgkr.com/temp/cb4f302ae0464f1fbfe59ccbc69689c6.png"><br><img src="https://static01.imgkr.com/temp/a7a06ac3c4b84ecdb1fc79dc999492a1.png"></p>
+<h3 id="信号过低通巴特沃斯滤波器"><a href="#信号过低通巴特沃斯滤波器" class="headerlink" title="信号过低通巴特沃斯滤波器"></a>信号过低通巴特沃斯滤波器</h3><pre class="line-numbers language-none"><code class="language-none">SignalData4 &#x3D; filter(lowpass,SignalData3);
+figure(5);plot(t*1000,SignalData4)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>在这里体现了之前滤波器文档命名的重要性。</p>
+<h3 id="输出信号分析"><a href="#输出信号分析" class="headerlink" title="输出信号分析"></a>输出信号分析</h3><pre class="line-numbers language-none"><code class="language-none">title(&#39;输出信号时域波形&#39;)
+xlabel(&#39;时间&#x2F;ms&#39;);
+ylabel(&#39;幅度&#x2F;V&#39;);
+FFT_Data2 &#x3D; fft(SignalData4,Caiyangdianshu);
+Y &#x3D; 2*sqrt(FFT_Data2.*conj(FFT_Data2));
+figure(6);plot(f&#x2F;1000,Y)
+title(&#39;输出信号频谱&#39;);
+xlabel(&#39;频率&#x2F;kHz&#39;);
+ylabel(&#39;幅值&#x2F;V&#39;);
+xlim([0,10]);
+glo&#x3D;abs(FFT_Data2).^2; %功率谱
+figure(7);plot(f&#x2F;1000,glo);
+title(&#39;输出信号功率谱&#39;);
+xlabel(&#39;频率&#x2F;kHz&#39;);
+ylabel(&#39;W&#x2F;Hz&#39;);
+xlim([0,10]);
+[Rx,maxlags]&#x3D;xcorr(SignalData4,&#39;unbiased&#39;);
+figure(8);plot(maxlags&#x2F;Caiyanglv*1000,Rx&#x2F;max(Rx));
+title(&#39;输出信号自相关&#39;)
+xlabel(&#39;时延差&#x2F;ms&#39;);
+ylabel(&#39;R(τ)&#39;);
+ylim([-1,1]);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="仿真结果"><a href="#仿真结果" class="headerlink" title="仿真结果"></a>仿真结果</h3><p><img src="https://static01.imgkr.com/temp/b386980d7f4442158be60586caf7cba2.png"><br><img src="https://static01.imgkr.com/temp/e595ad039b7743c994a25011e19dcd9b.png"><br><img src="https://static01.imgkr.com/temp/b8e12ef37298470f93619d3252b94daf.png"><br><img src="https://static01.imgkr.com/temp/11f517611cf14ef1934354227ec8f3e1.png"><br><img src="https://static01.imgkr.com/temp/7b99cd52e7404fa7b1ab0905892528d1.png"><br><img src="https://static01.imgkr.com/temp/df4dddd9a4f1498da8d601c639a4b75e.png"><br><img src="https://static01.imgkr.com/temp/26ee2825a5f04bbb80b53c0b9a6af28b.png"><br><img src="https://static01.imgkr.com/temp/25d55090cde24d0ebeadb2d898495816.png"></p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>从仿真结果中可以看出最终的输出信号其实是较为理想的，但是巴特沃斯滤波器的阶数选择是一个不可忽视的问题。当然，在仿真的过程中，我们可以任意选择阶数，只要能满足条件即可。但是实际电路中，阶数越高，导致的结果就是电路越复杂，越不容易实现。但是若又把结束选择过低，那么最终的滤波效果就不会很符合要求，比如下图就是阶数为3时的输出频谱图：<br><img src="https://static01.imgkr.com/temp/f4d5993972964bed8ea6ec2d96b3b59e.png"><br>可以看到干扰分量依旧很大。<br>所以，利用matlab仿真信号通过信道的过程，由于其大量的内置函数，使得该过程变得很简洁，这也是matlab的一大优点，但也应切实考虑实际电路的实现，这样才能得到反应工程现实的仿真结果。</p>
 
                 
             </div>
@@ -554,7 +589,7 @@ return 0&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><s
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://jiahao-g.github.io/2022/03/19/makedown-wen-jian-de-bian-xie-gui-fan/">https://jiahao-g.github.io/2022/03/19/makedown-wen-jian-de-bian-xie-gui-fan/</a>
+                    <a href="https://jiahao-g.github.io/2022/03/21/matlab-zhi-sui-ji-xin-hao-fen-xi-duo-pin-lu-zheng-xian-xin-hao-die-jia-zao-sheng-tong-guo-di-tong-lu-bo-qi/">https://jiahao-g.github.io/2022/03/21/matlab-zhi-sui-ji-xin-hao-fen-xi-duo-pin-lu-zheng-xian-xin-hao-die-jia-zao-sheng-tong-guo-di-tong-lu-bo-qi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -592,8 +627,8 @@ return 0&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><s
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/hexo%E5%8D%9A%E5%AE%A2/">
-                                    <span class="chip bg-color">hexo博客</span>
+                                <a href="/tags/matlab/">
+                                    <span class="chip bg-color">matlab</span>
                                 </a>
                             
                         </div>
@@ -767,17 +802,18 @@ return 0&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/03/19/hexo-bo-ke-da-jian-ji-chu-shi-hua/">
+                <a href="/2022/03/21/matlab-zhi-sui-ji-xin-hao-fen-xi-duo-pin-lu-zheng-xian-xin-hao-die-jia-zao-sheng-tong-guo-di-tong-lu-bo-qi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="hexo博客搭建及初始化">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="matlab之仿真信号在高斯信道中的传播过程">
                         
-                        <span class="card-title">hexo博客搭建及初始化</span>
+                        <span class="card-title">matlab之仿真信号在高斯信道中的传播过程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -787,26 +823,27 @@ return 0&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><s
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-19
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" class="post-category">
-                                    博客搭建
+                            <a href="/categories/matlab/" class="post-category">
+                                    matlab
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/hexo%E5%8D%9A%E5%AE%A2/">
-                        <span class="chip bg-color">hexo博客</span>
+                    <a href="/tags/matlab/">
+                        <span class="chip bg-color">matlab</span>
                     </a>
                     
                 </div>
@@ -820,13 +857,13 @@ return 0&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><s
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/03/07/hello-world/">
+                <a href="/2022/03/21/matlab-zhi-ji-chu-hui-tu-xing-zhu-bo/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="书写博客主要代码介绍">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="matlab之基础绘图（行驻波）">
                         
-                        <span class="card-title">书写博客主要代码介绍</span>
+                        <span class="card-title">matlab之基础绘图（行驻波）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -837,14 +874,14 @@ return 0&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><s
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-07
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-21
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" class="post-category">
-                                    博客搭建
+                            <a href="/categories/matlab/" class="post-category">
+                                    matlab
                                 </a>
                             
                             
@@ -854,8 +891,8 @@ return 0&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><s
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/hexo%E5%8D%9A%E5%AE%A2/">
-                        <span class="chip bg-color">hexo博客</span>
+                    <a href="/tags/matlab/">
+                        <span class="chip bg-color">matlab</span>
                     </a>
                     
                 </div>
