@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="分类: 博客搭建, 郭家豪のblog">
+    <meta name="keywords" content="分类: FPGA, 郭家豪のblog">
     <meta name="description" content="郭家豪のblog">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>分类: 博客搭建 | 郭家豪のblog</title>
+    <title>分类: FPGA | 郭家豪のblog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -369,7 +369,7 @@
                 
                 <a href="/categories/FPGA/" title="FPGA: 2">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default "
+                             chip-active "
                             style="background-color: #F9EBEA;">FPGA
                         <span class="tag-length">2</span>
                     </span>
@@ -378,7 +378,7 @@
                 
                 <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" title="博客搭建: 3">
                     <span class="chip center-align waves-effect waves-light
-                             chip-active "
+                             chip-default "
                             style="background-color: #F5EEF8;">博客搭建
                         <span class="tag-length">3</span>
                     </span>
@@ -416,31 +416,32 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2022/03/19/hexo-bo-ke-da-jian-ji-chu-shi-hua/">
+                    <a href="/2022/03/26/fpga-zhi-yong-verilog-shi-xian-yi-ge-liu-shui-deng/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="hexo博客搭建及初始化">
+                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="FPGA之用verilog实现一个流水灯">
                             
-                            <span class="card-title">hexo博客搭建及初始化</span>
+                            <span class="card-title">FPGA之用verilog实现一个流水灯</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                前言本文介绍了hexo博客的搭建，也就是本网站的制作过程。hexo博客凭借着github平台，不用像其它服务器那样付月租费用，这一点对于我们学生来说非常友好。所以，我们应该先在github官网（直接网上搜）上面申请一个账号，然后借用此账号给
+                                前言先前已经介绍了硬件语言以及vivado的使用，本文就正式上板制作一个小型流水灯，需要用到FPGA开发板，vivado平台。
+原理流水灯介绍一组发光LED，在控制系统的控制下按照设定的顺序和时间来发亮和熄灭，这样就能形成一定的视觉效果。如
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-19
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-26
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" class="post-category">
-                                    博客搭建
+                                <a href="/categories/FPGA/" class="post-category">
+                                    FPGA
                                 </a>
                                 
                                 
@@ -451,8 +452,8 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/hexo%E5%8D%9A%E5%AE%A2/">
-                            <span class="chip bg-color">hexo博客</span>
+                        <a href="/tags/FPGA/">
+                            <span class="chip bg-color">FPGA</span>
                         </a>
                         
                     </div>
@@ -462,32 +463,31 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2022/03/19/makedown-wen-jian-de-bian-xie-gui-fan/">
+                    <a href="/2022/03/26/fpga-kai-fa-zhi-ying-jian-yu-yan-ji-vivado-ru-men/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="makedown文件的编写规范">
+                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="FPGA开发之硬件语言及vivado入门">
                             
-                            <span class="card-title">makedown文件的编写规范</span>
+                            <span class="card-title">FPGA开发之硬件语言及vivado入门</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                简介关于makedown，百度上的介绍如下：
-Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语：John Gruber）。 它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者HTML）文档。这种语言
+                                前言FPGAFPGA的百度百科介绍如下：FPGA（Field Programmable Gate Array）是在PAL （可编程阵列逻辑）、GAL（通用阵列逻辑）等可编程器件的基础上进一步发展的产物。它是作为专用集成电路（ASIC）领域中
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-19
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-26
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" class="post-category">
-                                    博客搭建
+                                <a href="/categories/FPGA/" class="post-category">
+                                    FPGA
                                 </a>
                                 
                                 
@@ -498,54 +498,8 @@ Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语�
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/hexo%E5%8D%9A%E5%AE%A2/">
-                            <span class="chip bg-color">hexo博客</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/03/07/hello-world/">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="书写博客主要代码介绍">
-                            
-                            <span class="card-title">书写博客主要代码介绍</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-07
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" class="post-category">
-                                    博客搭建
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/hexo%E5%8D%9A%E5%AE%A2/">
-                            <span class="chip bg-color">hexo博客</span>
+                        <a href="/tags/FPGA/">
+                            <span class="chip bg-color">FPGA</span>
                         </a>
                         
                     </div>

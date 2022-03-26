@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>FPGA之用verilog实现一个流水灯</title>
+      <link href="/2022/03/26/fpga-zhi-yong-verilog-shi-xian-yi-ge-liu-shui-deng/"/>
+      <url>/2022/03/26/fpga-zhi-yong-verilog-shi-xian-yi-ge-liu-shui-deng/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>先前已经介绍了硬件语言以及vivado的使用，本文就正式上板制作一个小型流水灯，需要用到FPGA开发板，vivado平台。</p><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><h3 id="流水灯介绍"><a href="#流水灯介绍" class="headerlink" title="流水灯介绍"></a>流水灯介绍</h3><p>一组发光LED，在控制系统的控制下按照设定的顺序和时间来发亮和熄灭，这样就能形成一定的视觉效果。如果通过设计，实现LED灯依次点亮，那么就形成流水灯。</p><h3 id="关键设计"><a href="#关键设计" class="headerlink" title="关键设计"></a>关键设计</h3><ul><li>状态：需要存储当前的状态，12个灯中有一个是亮的，定义12个触发器构成的12位寄存器ledtemp保存当前的状态。</li><li>时钟：流水灯的流转时间设置为半秒钟（500ms&#x2F;2Hz)比较合适，系统的唯一时钟来源是由电路板上的有源晶振所产生的时钟连接到FPGA，是50MHz的时钟clk（根据具体板子型号而定）,因此需做25,000,000分频。</li><li>状态变化：将寄存器ledtemp的初始值设置为12’b0000_0000_0001，divclk的每个上升边沿，对ledtemp进行向左移位，当移到12’b1000_0000_0000之后，再次移位应移为12’b0000_0000_0001。</li></ul><h3 id="分频设计"><a href="#分频设计" class="headerlink" title="分频设计"></a>分频设计</h3><p>要进行25,000,000分频，采用计数器的方式。当计数值达到12,500,000时令divclk翻转，这样divclk的一个周期就是25,000,000个clk时钟周期。<br>需要一个寄存器变量存储计数值，12,500,000的十六进制是BEBC20为24位，因此需要设计24位以上的寄存器保存计数值。<br>该计数过程可以理解为：0-&gt; 12,500,000-&gt;0-&gt; 12,500,000-&gt;0-&gt; 12,500,000 ……</p><h3 id="约束管脚"><a href="#约束管脚" class="headerlink" title="约束管脚"></a>约束管脚</h3><p>一个时钟输入，12个数码管输出</p><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><pre class="line-numbers language-none"><code class="language-none">module v1(    input clk,   &#x2F;&#x2F;时钟输入     output [11:0] led   &#x2F;&#x2F;LED输出    );    reg[11:0] ledtemp &#x3D; 12&#39;b0000_0000_0001;   &#x2F;&#x2F;led初始值    reg[31:0] divclk_cnt &#x3D; 0;          &#x2F;&#x2F;32位计数器    reg divclk &#x3D; 0;                    &#x2F;&#x2F;低频时钟    assign led&#x3D;ledtemp;                &#x2F;&#x2F;实现将寄存器变量值赋给LED输出    parameter halfduty_cntvalue&#x3D; 12500000;always@(posedge clk) &#x2F;&#x2F;把系统时钟分频    begin        if(divclk_cnt&#x3D;&#x3D;halfduty_cntvalue)  &#x2F;&#x2F;计数满后翻转         begin            divclk &#x3D;~ divclk;            divclk_cnt &#x3D; 0;        end        else        begin             divclk_cnt &#x3D; divclk_cnt+1&#39;b1;        end    endalways@(divclk)&#x2F;&#x2F;流水灯状态变化    begin        if(ledtemp &#x3D; 12&#39;b100000000000)        begin            ledtemp &#x3D; 12&#39;b000000000001        end        else        begin            ledtemp &#x3D; ledtemp&lt;&lt;1        end    endendmodule<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h3 id="约束文件（不同板子根据现实情况而定）"><a href="#约束文件（不同板子根据现实情况而定）" class="headerlink" title="约束文件（不同板子根据现实情况而定）"></a>约束文件（不同板子根据现实情况而定）</h3><pre class="line-numbers language-none"><code class="language-none">set_property PACKAGE_PIN D4 [get_ports clk]set_property PACKAGE_PIN P9 [get_ports &#123;led[0]&#125;]set_property PACKAGE_PIN R8 [get_ports &#123;led[1]&#125;]set_property PACKAGE_PIN R7 [get_ports &#123;led[2]&#125;]set_property PACKAGE_PIN T5 [get_ports &#123;led[3]&#125;]set_property PACKAGE_PIN N6 [get_ports &#123;led[4]&#125;]set_property PACKAGE_PIN T4 [get_ports &#123;led[5]&#125;]set_property PACKAGE_PIN T3 [get_ports &#123;led[6]&#125;]set_property PACKAGE_PIN T2 [get_ports &#123;led[7]&#125;]set_property PACKAGE_PIN R1 [get_ports &#123;led[8]&#125;]set_property PACKAGE_PIN G5 [get_ports &#123;led[9]&#125;]set_property PACKAGE_PIN H3 [get_ports &#123;led[10]&#125;]set_property PACKAGE_PIN E3 [get_ports &#123;led[11]&#125;]set_property IOSTANDARD LVCMOS33 [get_ports clk]set_property IOSTANDARD LVCMOS33 [get_ports &#123;led[0]&#125;]set_property IOSTANDARD LVCMOS33 [get_ports &#123;led[1]&#125;]set_property IOSTANDARD LVCMOS33 [get_ports &#123;led[2]&#125;]set_property IOSTANDARD LVCMOS33 [get_ports &#123;led[3]&#125;]set_property IOSTANDARD LVCMOS33 [get_ports &#123;led[4]&#125;]set_property IOSTANDARD LVCMOS33 [get_ports &#123;led[5]&#125;]set_property IOSTANDARD LVCMOS33 [get_ports &#123;led[6]&#125;]set_property IOSTANDARD LVCMOS33 [get_ports &#123;led[7]&#125;]set_property IOSTANDARD LVCMOS33 [get_ports &#123;led[8]&#125;]set_property IOSTANDARD LVCMOS33 [get_ports &#123;led[9]&#125;]set_property IOSTANDARD LVCMOS33 [get_ports &#123;led[10]&#125;]set_property IOSTANDARD LVCMOS33 [get_ports &#123;led[11]&#125;]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> FPGA </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> FPGA </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>FPGA开发之硬件语言及vivado入门</title>
+      <link href="/2022/03/26/fpga-kai-fa-zhi-ying-jian-yu-yan-ji-vivado-ru-men/"/>
+      <url>/2022/03/26/fpga-kai-fa-zhi-ying-jian-yu-yan-ji-vivado-ru-men/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="FPGA"><a href="#FPGA" class="headerlink" title="FPGA"></a>FPGA</h3><p>FPGA的百度百科介绍如下：<br>FPGA（Field Programmable Gate Array）是在PAL （可编程阵列逻辑）、GAL（通用阵列逻辑）等可编程器件的基础上进一步发展的产物。它是作为专用集成电路（ASIC）领域中的一种半定制电路而出现的，既解决了定制电路的不足，又克服了原有可编程器件门电路数有限的缺点。<br>FPGA芯片相较于其它具有很多优点，对于我个人来讲，总结起来大概就是以下三点：开发方式简单（使用框图或者verilog hdl等，开发语言和C语言类似）、可以无限次重新编程、自带时钟源且可以设计修改。</p><h3 id="硬件描述语言"><a href="#硬件描述语言" class="headerlink" title="硬件描述语言"></a>硬件描述语言</h3><p>硬件描述语言（HDL）是一种用来设计数字逻辑系统和描述数字电路的语言，常用的主要有VHDL、Verilog HDL、System Verilog 和 System C。<br>针对于FPGA的开发，本文主要介绍最常用的Verilog HDL，该语言可以在众多开发平台上使用，比较常用的有vivado和quartus。</p><h3 id="vivado"><a href="#vivado" class="headerlink" title="vivado"></a>vivado</h3><p>百度百科介绍如下：Vivado设计套件，是FPGA厂商赛灵思公司2012年发布的集成设计环境。包括高度集成的设计环境和新一代从系统到IC级的工具，这些均建立在共享的可扩展数据模型和通用调试环境基础上。这也是一个基于AMBA AXI4 互联规范、IP-XACT IP封装元数据、工具命令语言(TCL)、Synopsys 系统约束(SDC) 以及其它有助于根据客户需求量身定制设计流程并符合业界标准的开放式环境。赛灵思构建的的Vivado 工具把各类可编程技术结合在一起，能够扩展多达1 亿个等效ASIC 门的设计。<br>下面我们正式介绍Verilog HDL及vivado的使用。</p><h2 id="vivado的使用"><a href="#vivado的使用" class="headerlink" title="vivado的使用"></a>vivado的使用</h2><p>Verilog在《数字逻辑电路基础》教材或者其它相关课程中都有极为详细的介绍，总之，其语法和C语言类似，程序注重模块化，其它细节可以详见课本，不多赘述。<br>本文的重点在于vivado的入门及使用。<br>下载完成后，运行桌面图标，注意vivado内存较大，打开时间缓慢…<br>打开后的界面如下：<br><img src="https://static01.imgkr.com/temp/a9051221420846c68601e9e9992a920d.png"><br>之后点击creat project，之后next<br><img src="https://static01.imgkr.com/temp/98fbfaf6c50c4281b420518b34220116.png"><br>给工程命名并选择路径，之后next<br><img src="https://static01.imgkr.com/temp/b0f5c77d0f2e4df0a571b17d09e22f2a.png"><br>我们选择RTL类型的工程（默认）<br><img src="https://static01.imgkr.com/temp/04365614c9134640b24d0bfd47b4302a.png"><br>之后暂时不添加源文件，一路next<br><img src="https://static01.imgkr.com/temp/77f074c69d85458e8653ad9763d5d92b.png"><br>之后的界面是选择芯片种类，该过程要针对实际有种的FPGA芯片版本进行选择，故该过程省略，选择好之后，界面会跳动到这里<br><img src="https://static01.imgkr.com/temp/104b2bea9f1449f8a4c16c4d08de9753.png"><br>之后就可以生成我们的工程文件了<br><img src="https://static01.imgkr.com/temp/48d3806f7394462aa671f14f36edbf11.png"><br>工程创建成功之后的页面如下：<br><img src="https://static01.imgkr.com/temp/8854c04cebc1418a85e96ab7c37a9230.png"><br>绿圈的部分是该工程的源代码，现在里面是空的；红圈标注的地方是该工程的详细信息。<br>点击左侧导航栏“Project manager”中的“Add Source”，我们马上添加 Verilog 源代码。选<br>择“Add or create design sources”，点击“next”。<br><img src="https://static01.imgkr.com/temp/cd671df65f0849838d3a454e091c9bcb.png"><br> 提示添加文件，点击“create file”。<br><img src="https://static01.imgkr.com/temp/3dd3c8d1968c4713bfa77ea6662eeeec.png"><br>为 Verilog 源代码命名，这里可以让模块名与工程同名，也可以不同名。点击“ok”。<br><img src="https://static01.imgkr.com/temp/56d9feeef5dd478eb2b9f90e1e134158.png"><br>可以看到新生成的 Verilog 源程序(basic_logic_gate.v)，点击“finish”。<br><img src="https://static01.imgkr.com/temp/6594d3a3ad4f46dab66aeeca5a655f15.png"><br>在接下来的界面中，我们可以在红框位置填写 Verilog 源程序(basic_logic_gate.v)所用到的输入&#x2F;输出量。<br>填写后为：a 和 b 为输入，F1、F2、F3 和 F4 为输出；当列目&gt;3 时，我们使用“+”添加行。填写完成后，点击“ok”。<br><img src="https://static01.imgkr.com/temp/6f905e61eda648719387cf4ff58a9c14.png"><br>再看“Sources”中，已添加好我们生成的 Verilog 源程序，双击它，右侧文本框中出现其具体代码。可以发现我们已经定义的 a、b、F1、F2、F3 和 F4 已经被填写好。<br><img src="https://static01.imgkr.com/temp/70b4e62e58694852a03d0dd70f8ceaeb.png"><br>我们继续在右侧的文本框中，填写完整我们所编写的 Verilog 代码。并点击“保存”。 需完成功能包括：<br>F1与门；F2非门；F3与非门；F4异或。<br><img src="https://static01.imgkr.com/temp/8d90dc421f59445580c0773c8872e1b9.png"><br>点击左侧导航栏“Project manager”中的“RTL ANALYSIS”下的“Open Elaborate Design”（寄存器传输级的精细化设计），可以看到我们程序的电路图。<br><img src="https://static01.imgkr.com/temp/edf20feacda5425fb51b5923f090b601.png"><br><img src="https://static01.imgkr.com/temp/6ebe542f14a2466487b011f3dce416f2.png"><br><img src="https://static01.imgkr.com/temp/91d78188a8c64c7fbe94482af2514a89.png"><br>至此，我们就成功搭建了第一个工程文件，实现了一些较为简单的逻辑运算。</p><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>其实vivado除了上述的功能外，也可以新增simulation sources（仿真文件源）来对我们编好的程序进行仿真。另外，当程序需要烧录进FPGA进行实际仿真时，就可以添加管脚约束、综合（synthesis）、实现（implementation)、生成比特流，然后就可以上板调试了。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> FPGA </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> FPGA </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>matlab高级应用之plutosdr工具箱</title>
       <link href="/2022/03/24/matlab-gao-ji-ying-yong-zhi-plutosdr-gong-ju-xiang/"/>
       <url>/2022/03/24/matlab-gao-ji-ying-yong-zhi-plutosdr-gong-ju-xiang/</url>
