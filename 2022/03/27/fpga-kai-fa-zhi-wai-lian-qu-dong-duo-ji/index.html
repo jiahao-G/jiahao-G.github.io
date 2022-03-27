@@ -620,7 +620,7 @@ set_property PACKAGE_PIN B14 [get_ports pwm]
 set_property IOSTANDARD LVCMOS33 [get_ports pwm]
 set_property PACKAGE_PIN B13 [get_ports rst_n]
 set_property IOSTANDARD LVCMOS33 [get_ports rst_n]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>我们可以简单梳理以下。<br>外连电机的接口：电机的正负极接口自然接到FPGA的正极与地，电机A的数据接在B14，电机B的数据接在A18；<br>外连MCU的接口：异常控制信号接在B13，复位信号接在A14，电机B控制信号接在B16，电机A控制信号接在B12和C12。</p>
+<p>我们可以简单梳理一下。<br>外连电机的接口：电机的正负极接口自然接到FPGA的正极与地，电机A的数据接在B14，电机B的数据接在A18；<br>外连MCU的接口：异常控制信号接在B13，复位信号接在A14，电机B控制信号接在B16，电机A控制信号接在B12和C12。</p>
 <h2 id="RTL分析原理图"><a href="#RTL分析原理图" class="headerlink" title="RTL分析原理图"></a>RTL分析原理图</h2><p>代码综合后，我们可以利用vivado产生原理框图，更加直观地了解到该过程地运作。<br><img src="https://static01.imgkr.com/temp/06b2738ffd7547808ff61133d8a54f00.png"><br>放大后，可以看到每个部件代表的变量及互相的连接关系：<br><img src="https://static01.imgkr.com/temp/6f91f41c9c264936b1336ab92a6a3a4a.png"><br><img src="https://static01.imgkr.com/temp/077a4760517743a2aa6b15caaa772217.png"><br><img src="https://static01.imgkr.com/temp/4ea9421eb4574fb98166eb3c314bdaea.png"><br><img src="https://static01.imgkr.com/temp/5d478a52569445eca04dcf4fb78fb2b6.png"></p>
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>至此，针对该功能的所有开发过程就结束了，在整个开发过程中，最复杂的部分在于如何控制电机转动的次序，即要精确地控制电机A先转到指定位置，然后电机B开始倾倒，倾倒完毕后复位，最后电机A再复位。于是乎，两个电机的转动和复位都必须独立进行，也就是说至少会有4个控制变量。然而，鉴于verilog各个模块的赋值是并行同时进行的，也就是说，单纯依靠verilog无法实现电机先后有序地工作与复位。解决此问题的办法可以令FPGA的原始输入就是已经是排序并分隔好了的，这就需要依赖MCU来实现了。</p>
 
