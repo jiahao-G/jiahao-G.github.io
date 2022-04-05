@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="BP神经网络解决汽油辛烷值检测问题, 郭家豪のblog">
+    <meta name="keywords" content="BP神经网络算法解决汽油辛烷值检测问题, 郭家豪のblog">
     <meta name="description" content="前言（问题再现）辛烷值是汽油最重要的品质指标，传统的实验室检测方法存在样品用量大、测试周期长和费用高等问题，不适用于生产控制，特别是在线测试。近年来发展起来的近红外光谱分析方法（NIR），作为一种快速分析方法，已广泛应用于农业、制药、生物化">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>BP神经网络解决汽油辛烷值检测问题 | 郭家豪のblog</title>
+    <title>BP神经网络算法解决汽油辛烷值检测问题 | 郭家豪のblog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -309,12 +309,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">BP神经网络解决汽油辛烷值检测问题</h1>
+                    <h1 class="description center-align post-title">BP神经网络算法解决汽油辛烷值检测问题</h1>
                 </div>
             </div>
         </div>
@@ -480,7 +480,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="前言（问题再现）"><a href="#前言（问题再现）" class="headerlink" title="前言（问题再现）"></a>前言（问题再现）</h2><p>辛烷值是汽油最重要的品质指标，传统的实验室检测方法存在样品用量大、测试周期长和费用高等问题，不适用于生产控制，特别是在线测试。近年来发展起来的近红外光谱分析方法（NIR），作为一种快速分析方法，已广泛应用于农业、制药、生物化工、石油产品等领域。其优越性是无损检测、低成本、无污染、能在线分析，更适合于生产和控制的需要。<br>针对采集得到的60组汽油样品，利用傅里叶近红外变换光谱仪对其进行扫描，扫描范围为0~450nm，扫描间隔为2nm，每个样品的光谱曲线共含401个波长点。同时，利用传统实验室检测方法测定辛烷值含量，现要求利用BP神经网络建立汽油样品近红外光谱及其辛烷值间的数学模型，并对模型的性能进行评价。</p>
-<h2 id="模型建立步骤及过程代码分析"><a href="#模型建立步骤及过程代码分析" class="headerlink" title="模型建立步骤及过程代码分析"></a>模型建立步骤及过程代码分析</h2><h3 id="提取数据并产生训练集和测试集"><a href="#提取数据并产生训练集和测试集" class="headerlink" title="提取数据并产生训练集和测试集"></a>提取数据并产生训练集和测试集</h3><p>注意事项：模型所用的数据来源于网络。为保证建立的模型具有良好的泛化能力，要求训练集样本数量足够多，且具有良好的代表性。综合考量，在原始的60个样本中，可随机选择50个样本作为训练集，10个样本作为测试集合，其中，随机性是为了保证训练集具有一定的代表性。</p>
+<h2 id="模型建立步骤及过程代码分析"><a href="#模型建立步骤及过程代码分析" class="headerlink" title="模型建立步骤及过程代码分析"></a>模型建立步骤及过程代码分析</h2><h3 id="提取数据并产生训练集和测试集"><a href="#提取数据并产生训练集和测试集" class="headerlink" title="提取数据并产生训练集和测试集"></a>提取数据并产生训练集和测试集</h3><p>注意事项：模型所用的数据来源于网络。为保证建立的模型具有良好的泛化能力，要求训练集样本数量足够多，且具有良好的代表性。综合考量，在原始的60个样本中，可随机选择50个样本作为训练集，10个样本作为测试集，其中，随机性是为了保证训练集具有一定的代表性。</p>
 <pre class="line-numbers language-none"><code class="language-none">%  导入数据
 load spectra_data.mat
 %  随机产生训练集和测试集
@@ -516,7 +516,7 @@ net &#x3D; train(net,p_train,t_train);
 t_sim &#x3D; sim(net,p_test);
 % 数据反归一化
 T_sim &#x3D; mapminmax(&#39;reverse&#39;,t_sim,ps_output);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>创建网络之后，我们可以得到其结构图:<br><img src="https://static01.imgkr.com/temp/46571aa443474e0c93099d64fdaaba31.png"><br>我们可以计算出权值个数为：401<em>9+9</em>1+10（每个神经元的阈值）&#x3D;3628</p>
+<p>创建网络之后，我们可以得到其结构图:<br><img src="https://static01.imgkr.com/temp/46571aa443474e0c93099d64fdaaba31.png"><br>我们可以计算出权值个数为：401×9+9×1+10（每个神经元的阈值）&#x3D;3628</p>
 <h3 id="性能评价"><a href="#性能评价" class="headerlink" title="性能评价"></a>性能评价</h3><p>评价指标中选择了一个叫做决定系数的量作为参照，其计算公式如下：<br><img src="https://static01.imgkr.com/temp/fe43d134466043d3b75bc79592021130.png"></p>
 <pre class="line-numbers language-none"><code class="language-none">% 相对误差error
 error &#x3D; abs(T_sim - T_test).&#x2F;T_test;
@@ -559,7 +559,7 @@ title(string)<span aria-hidden="true" class="line-numbers-rows"><span></span><sp
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://jiahao-g.github.io/2022/04/05/bp-shen-jing-wang-luo-jie-jue-qi-you-xin-wan-zhi-jian-ce-wen-ti/">https://jiahao-g.github.io/2022/04/05/bp-shen-jing-wang-luo-jie-jue-qi-you-xin-wan-zhi-jian-ce-wen-ti/</a>
+                    <a href="https://jiahao-g.github.io/2022/04/05/bp-shen-jing-wang-luo-suan-fa-jie-jue-qi-you-xin-wan-zhi-jian-ce-wen-ti/">https://jiahao-g.github.io/2022/04/05/bp-shen-jing-wang-luo-suan-fa-jie-jue-qi-you-xin-wan-zhi-jian-ce-wen-ti/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -777,13 +777,13 @@ title(string)<span aria-hidden="true" class="line-numbers-rows"><span></span><sp
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2022/04/05/bp-shen-jing-wang-luo-jie-jue-qi-you-xin-wan-zhi-jian-ce-wen-ti/">
+                <a href="/2022/04/05/bp-shen-jing-wang-luo-suan-fa-jie-jue-qi-you-xin-wan-zhi-jian-ce-wen-ti/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="BP神经网络解决汽油辛烷值检测问题">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="BP神经网络算法解决汽油辛烷值检测问题">
                         
-                        <span class="card-title">BP神经网络解决汽油辛烷值检测问题</span>
+                        <span class="card-title">BP神经网络算法解决汽油辛烷值检测问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
