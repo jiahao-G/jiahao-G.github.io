@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>BP神经网络解决汽油辛烷值检测问题</title>
+      <link href="/2022/04/05/bp-shen-jing-wang-luo-jie-jue-qi-you-xin-wan-zhi-jian-ce-wen-ti/"/>
+      <url>/2022/04/05/bp-shen-jing-wang-luo-jie-jue-qi-you-xin-wan-zhi-jian-ce-wen-ti/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言（问题再现）"><a href="#前言（问题再现）" class="headerlink" title="前言（问题再现）"></a>前言（问题再现）</h2><p>辛烷值是汽油最重要的品质指标，传统的实验室检测方法存在样品用量大、测试周期长和费用高等问题，不适用于生产控制，特别是在线测试。近年来发展起来的近红外光谱分析方法（NIR），作为一种快速分析方法，已广泛应用于农业、制药、生物化工、石油产品等领域。其优越性是无损检测、低成本、无污染、能在线分析，更适合于生产和控制的需要。<br>针对采集得到的60组汽油样品，利用傅里叶近红外变换光谱仪对其进行扫描，扫描范围为0~450nm，扫描间隔为2nm，每个样品的光谱曲线共含401个波长点。同时，利用传统实验室检测方法测定辛烷值含量，现要求利用BP神经网络建立汽油样品近红外光谱及其辛烷值间的数学模型，并对模型的性能进行评价。</p><h2 id="模型建立步骤及过程代码分析"><a href="#模型建立步骤及过程代码分析" class="headerlink" title="模型建立步骤及过程代码分析"></a>模型建立步骤及过程代码分析</h2><h3 id="提取数据并产生训练集和测试集"><a href="#提取数据并产生训练集和测试集" class="headerlink" title="提取数据并产生训练集和测试集"></a>提取数据并产生训练集和测试集</h3><p>注意事项：模型所用的数据来源于网络。为保证建立的模型具有良好的泛化能力，要求训练集样本数量足够多，且具有良好的代表性。综合考量，在原始的60个样本中，可随机选择50个样本作为训练集，10个样本作为测试集合，其中，随机性是为了保证训练集具有一定的代表性。</p><pre class="line-numbers language-none"><code class="language-none">%  导入数据load spectra_data.mat%  随机产生训练集和测试集temp &#x3D; randperm(size(NIR,1));% 训练集——50个样本P_train &#x3D; NIR(temp(1:50),:)&#39;;T_train &#x3D; octane(temp(1:50),:)&#39;;% 测试集——10个样本P_test &#x3D; NIR(temp(51:end),:)&#39;;T_test &#x3D; octane(temp(51:end),:)&#39;;N &#x3D; size(P_test,2);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>导入数据后，我们可以绘制出所给数据的输入输出关系图（物理意义即为近红外光谱图）：<br><img src="https://static01.imgkr.com/temp/0427c467fb3545949c5241d768b7820a.png"><br>可以帮助我们检测数据的合理性。</p><h3 id="数据归一化"><a href="#数据归一化" class="headerlink" title="数据归一化"></a>数据归一化</h3><p>之所以要归一化，我的理解有如下几点：</p><ul><li>如果不进行归一化处理，当输入数据范围特别大时，会使得神经网络训练时间过长。</li><li>在神经网络的神经元上，激活函数的值域是有限的（比如采用的激活函数是双极S型函数是，其只在-1~1之间取值），为保证衡量模型好坏时破坏有效性（导致误差极大），需要使得输入数据保持在相应的范围内。</li><li>另外，S函数在超过1之外的取值变化很缓慢，区分度不高，此范围内的数据自然没有参考意义。</li></ul><pre class="line-numbers language-none"><code class="language-none">[p_train, ps_input] &#x3D; mapminmax(P_train,0,1);p_test &#x3D; mapminmax(&#39;apply&#39;,P_test,ps_input);[t_train, ps_output] &#x3D; mapminmax(T_train,0,1);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><h3 id="BP神经网络创建、训练及仿真测试"><a href="#BP神经网络创建、训练及仿真测试" class="headerlink" title="BP神经网络创建、训练及仿真测试"></a>BP神经网络创建、训练及仿真测试</h3><p>创建神经网络时，需要考量的一个属性是神经元个数，我们暂且设为9，之后在模型评价时进行优化。</p><pre class="line-numbers language-none"><code class="language-none">% 创建网络net &#x3D; newff(p_train,t_train,9);% 设置训练参数net.trainParam.epochs &#x3D; 1000;%迭代次数net.trainParam.goal &#x3D; 1e-3;%训练目标net.trainParam.lr &#x3D; 0.01;%学习率% 训练网络net &#x3D; train(net,p_train,t_train);% 仿真测试t_sim &#x3D; sim(net,p_test);% 数据反归一化T_sim &#x3D; mapminmax(&#39;reverse&#39;,t_sim,ps_output);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>创建网络之后，我们可以得到其结构图:<br><img src="https://static01.imgkr.com/temp/46571aa443474e0c93099d64fdaaba31.png"><br>我们可以计算出权值个数为：401<em>9+9</em>1+10（每个神经元的阈值）&#x3D;3628</p><h3 id="性能评价"><a href="#性能评价" class="headerlink" title="性能评价"></a>性能评价</h3><p>评价指标中选择了一个叫做决定系数的量作为参照，其计算公式如下：<br><img src="https://static01.imgkr.com/temp/fe43d134466043d3b75bc79592021130.png"></p><pre class="line-numbers language-none"><code class="language-none">% 相对误差errorerror &#x3D; abs(T_sim - T_test).&#x2F;T_test;% 决定系数R^2R2 &#x3D; (N * sum(T_sim .* T_test) - sum(T_sim) * sum(T_test))^2 &#x2F; ((N * sum((T_sim).^2) - (sum(T_sim))^2) * (N * sum((T_test).^2) - (sum(T_test))^2)); % 3. 结果对比result &#x3D; [T_test&#39; T_sim&#39; error&#39;]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h3 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h3><pre class="line-numbers language-none"><code class="language-none">figureplot(1:N,T_test,&#39;b:*&#39;,1:N,T_sim,&#39;r-o&#39;)legend(&#39;真实值&#39;,&#39;预测值&#39;)xlabel(&#39;预测样本&#39;)ylabel(&#39;辛烷值&#39;)string &#x3D; &#123;&#39;测试集辛烷值含量预测结果对比&#39;;[&#39;R^2&#x3D;&#39; num2str(R2)]&#125;;title(string)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h3 id="执行结果"><a href="#执行结果" class="headerlink" title="执行结果"></a>执行结果</h3><p>从左至右为实际值，预测值，相对误差<br><img src="https://static01.imgkr.com/temp/d98d978d91124dcca37a28db4141cabc.png"><br>更直观来看：<br><img src="https://static01.imgkr.com/temp/a0191396e13744c0900096c0122c85f4.png"><br>从R2接近于1的程度来看，该模型还是相对可行的。</p><h2 id="结语（感悟）"><a href="#结语（感悟）" class="headerlink" title="结语（感悟）"></a>结语（感悟）</h2><p>对于之前搁置的神经元个数选择问题，我们可以多尝试几个值，然后对得到的结果进行对比。<br>多次尝试后发现，即使神经元的个数是一样的，结果预测的依然不一样，甚至连迭代次数都不同，说明神经网络算法对于结果预测的随机性，这种随机性来源于其刚开始初始化神经网络时生成的权值随机，以及训练集和测试集选择的随机。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> matlab </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> matlab </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>FPGA开发之外连驱动舵机</title>
       <link href="/2022/03/27/fpga-kai-fa-zhi-wai-lian-qu-dong-duo-ji/"/>
       <url>/2022/03/27/fpga-kai-fa-zhi-wai-lian-qu-dong-duo-ji/</url>
