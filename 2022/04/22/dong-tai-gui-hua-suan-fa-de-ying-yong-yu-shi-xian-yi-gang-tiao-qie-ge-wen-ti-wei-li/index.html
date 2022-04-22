@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="基于比较的各类排序算法简介及C语言实现, 郭家豪のblog">
-    <meta name="description" content="前言在日常生活中，我们常常遇到一些关于排序的问题，比如学生的成绩、工作人员年龄的大小等等。正因排序问题如此之常见，其在解决方案的算法领域的相关研究也颇为成熟，学过C语言的同学一定接触过所谓的冒泡排序（BUBBLESORT），这便是关于排序最">
+    <meta name="keywords" content="动态规划算法的应用与实现（以钢条切割问题为例）, 郭家豪のblog">
+    <meta name="description" content="前言我们或多或少都遇到过规划类的问题，类似于通过规划实现最大收益，利用规划进行数据预测等等。本文基于钢条切割问题，介绍了动态规划算法来实现利益的最大化，其中包括了自顶向下、自底向上两种实现过程，最终通过时间复杂度来与普通递归进行比较，深入体">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>基于比较的各类排序算法简介及C语言实现 | 郭家豪のblog</title>
+    <title>动态规划算法的应用与实现（以钢条切割问题为例） | 郭家豪のblog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -309,12 +309,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">基于比较的各类排序算法简介及C语言实现</h1>
+                    <h1 class="description center-align post-title">动态规划算法的应用与实现（以钢条切割问题为例）</h1>
                 </div>
             </div>
         </div>
@@ -455,7 +455,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-04-21
+                    2022-04-22
                 </div>
                 
 
@@ -479,309 +479,227 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在日常生活中，我们常常遇到一些关于排序的问题，比如学生的成绩、工作人员年龄的大小等等。正因排序问题如此之常见，其在解决方案的算法领域的相关研究也颇为成熟，学过C语言的同学一定接触过所谓的冒泡排序（BUBBLESORT），这便是关于排序最为常见的一种算法，但是冒泡排序的效率却非常的低。基于此，本文简单介绍了目前常用的几种排序算法，并用C语言将其实现出来，进一步分析这些算法的时间复杂度，深入体会算法的效率高低。</p>
-<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>从第一个元素开始，依次与后面元素进行比较，较大者放在后面，比较完一轮后，最大的在最后一个。然后再对除最大的元素外进行比较，循环往复，直至遍历全部元素。</p>
-<h3 id="C语言实现"><a href="#C语言实现" class="headerlink" title="C语言实现"></a>C语言实现</h3><pre class="line-numbers language-none"><code class="language-none">void bubble(int *num,int n)
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我们或多或少都遇到过规划类的问题，类似于通过规划实现最大收益，利用规划进行数据预测等等。本文基于钢条切割问题，介绍了动态规划算法来实现利益的最大化，其中包括了自顶向下、自底向上两种实现过程，最终通过时间复杂度来与普通递归进行比较，深入体会动态规划算法的研究意义所在。</p>
+<h2 id="问题重述"><a href="#问题重述" class="headerlink" title="问题重述"></a>问题重述</h2><p>所谓钢条切割问题，其实可以看做一整类问题的一个缩影。市场上规定不同长度的钢条的售卖单价不同，生产商现有一批钢条，其长度是任意的，要解决的问题即是该如何切割对应长度的钢条，使得最终的售卖价格（收益）最大。现已知市场价格如下：</p>
+<table>
+<thead>
+<tr>
+<th>长度i</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>价格p</td>
+<td>1</td>
+<td>5</td>
+<td>8</td>
+<td>9</td>
+<td>10</td>
+<td>17</td>
+<td>17</td>
+<td>20</td>
+<td>24</td>
+<td>30</td>
+</tr>
+</tbody></table>
+<p>我们以n&#x3D;4来举例体会一下钢条切割问题的解决过程，长度为4的切割方案共有8种，每种最终的价格如下：</p>
+<table>
+<thead>
+<tr>
+<th>切割方案</th>
+<th>4</th>
+<th>1+3</th>
+<th>2+2</th>
+<th>3+1</th>
+<th>1+1+2</th>
+<th>1+2+1</th>
+<th>2+1+1</th>
+<th>1+1+1+1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收益</td>
+<td>9</td>
+<td>1+8&#x3D;9</td>
+<td>5+5&#x3D;10</td>
+<td>8+1&#x3D;9</td>
+<td>1+1+5&#x3D;7</td>
+<td>1+5+1&#x3D;7</td>
+<td>5+1+1&#x3D;7</td>
+<td>1+1+1+1&#x3D;4</td>
+</tr>
+</tbody></table>
+<p>可见当切成2+2类型时，可以得到最大收益为10。<br>动态规划就是求解钢条切割所得到最大的收益是多少的一种高效率算法。</p>
+<h2 id="算法设计及C语言实现"><a href="#算法设计及C语言实现" class="headerlink" title="算法设计及C语言实现"></a>算法设计及C语言实现</h2><h3 id="普通递归"><a href="#普通递归" class="headerlink" title="普通递归"></a>普通递归</h3><p>在进行正式的动态规划算法之前，我们可以考量钢条切割问题是否可以通过普通的递归来分治解决，答案当然是肯定的。其递归的思路为：每一次切割，原问题（原钢条）会变成两个规模较小的子问题（长度较短的两个小钢条），对子问题的最优切割方案求解，然后合并就可以得到原问题的解。<br>C语言实现如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">#include&lt;stdio.h&gt;
+int N[11]&#x3D;&#123;0,1,5,8,9,10,17,17,20,24,30&#125;;
+int r[11]&#x3D;&#123;0&#125;;
+int re(int);
+int maxx(int ,int);
+int main()
 &#123;
-	int tmp,i,j;
-	for(i&#x3D;0;i&lt;n;i++)
+	int current;
+	puts(&quot;输入你要裁剪的钢条长度：&quot;);
+	scanf(&quot;%d&quot;,&amp;current);
+	int i;
+	printf(&quot;%d长的钢条最大收益是：%d\n&quot;,current,re(current));
+	printf(&quot;各个长度的收益情况：\n长度：&quot;);
+	for(i&#x3D;0;i&lt;&#x3D;current;i++)
 	&#123;
-		for(j&#x3D;0;j&lt;n-i;j++)
-		&#123;
-			if(num[j]&gt;num[j+1])
-			&#123;
-				tmp &#x3D; num[j];
-				num[j] &#x3D; num[j+1];
-				num[j+1] &#x3D; tmp;
-			&#125;
-		&#125;
+		printf(&quot;%3d &quot;,i);
 	&#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>其实从代码中便可以清晰地看出，有两个for循环发生嵌套，外部循环n次，内部最高循环n次，故时间复杂度为O(n^2)。</p>
-<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>插入排序的工作模式可以形象地描述为扑克牌整理。开始时，我们的左手为空并且桌子上的牌面向下（看不到数字）。然后，我们每次从桌子上拿走一张牌并将它插入左手中正确的位置。为了找到一张牌的正确位置，我们从右到左将它与已在手中的每张牌进行比较，找到正确位置后插入。拿在左手上的牌总是排序好的，原来这些牌是桌子上牌堆中顶部的牌。</p>
-<h3 id="C语言实现-1"><a href="#C语言实现-1" class="headerlink" title="C语言实现"></a>C语言实现</h3><pre class="line-numbers language-none"><code class="language-none">void insert(int *num,int n)
+	puts(&quot;&quot;);
+	printf(&quot;收益：&quot;);
+	for(i&#x3D;0;i&lt;&#x3D;current;i++)
+	&#123;
+		printf(&quot;%3d &quot;,r[i]);
+	&#125;
+	puts(&quot;&quot;);
+	scanf(&quot;%d&quot;,&amp;current);
+&#125;
+int re(int n)
 &#123;
-	int a[100];
-	int j,i,tmp;
-	for(i&#x3D;1;i&lt;n+1;i++)
-	&#123;
-		a[i]&#x3D;num[i];
-	&#125;
-	for(i&#x3D;2;i&lt;&#x3D;n;i++)
-	&#123;
-		tmp&#x3D;a[i];
-		j&#x3D;i-1;
-		while(j&gt;0&amp;&amp;a[j]&gt;tmp)
-		&#123;
-			a[j+1]&#x3D;a[j];
-			j--;
-		&#125;
-		a[j+1]&#x3D;tmp;
-	&#125;
-	for(i&#x3D;0;i&lt;&#x3D;n;i++)
-	&#123;
-		num[i]&#x3D;a[i];
-	&#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="时间复杂度分析-1"><a href="#时间复杂度分析-1" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>同样的，每张牌我们都要拿到（n次），每张牌的比较最高要进行(n次)，故时间复杂度为O（n^2）。</p>
-<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><h3 id="简介-2"><a href="#简介-2" class="headerlink" title="简介"></a>简介</h3><p>将第一个元素与其他元素比较，小的放在第一个位置，这样前面的都是最小的。</p>
-<h3 id="C语言实现-2"><a href="#C语言实现-2" class="headerlink" title="C语言实现"></a>C语言实现</h3><pre class="line-numbers language-none"><code class="language-none">void select(int *a,int n)
+	if(n&#x3D;&#x3D;0)
+		return 0;
+	int q&#x3D;N[n];
+	int i;
+	for(i&#x3D;1;i&lt;n;i++)
+		q&#x3D;maxx(q,r[i]+re(n-i));&#x2F;&#x2F;递归实现
+	r[n]&#x3D;q;
+	return q;
+&#125;
+int maxx(int a,int b)
 &#123;
-	int temp,i,j;
-	for(i&#x3D;1;i&lt;&#x3D;n;i++)
+	if(a&gt;&#x3D;b)
+		return a;
+	else
+		return b;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>观察以上代码，尤其是re函数部分，我们可以看到如下的递归调用过程（数字代表子问题规模）：<br><img src="https://static01.imgkr.com/temp/c5c20be37ac24b51bb4dc744a750ad0a.png"><br>其中，有些规模相同的子问题（1、2等）被求解了很多次，这是完全没必要的，而这个问题也正是普通递归的算法低效的症结所在。</p>
+<h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><p>递归算法之所以低效率，是因为同样的子问题被反复求解多次，耗时且没必要。于是我们可以思考，是否可以引入一个表格或者数组，来储存已经求出结果的子问题（备忘机制），之后的每次调用都仅仅需要访问数组或表格来得到解，而不需要反复多次求解。<br>于是在原代码的函数部分需要添加备忘操作</p>
+<pre class="line-numbers language-none"><code class="language-none">if(r[n]!&#x3D;0)
+&#123;
+  return r[n];
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>最终得到的整体C语言实现过程如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">#include&lt;stdio.h&gt;
+int N[11]&#x3D;&#123;0,1,5,8,9,10,17,17,20,24,30&#125;;
+int upToDown(int);
+int r[11]&#x3D;&#123;0&#125;;
+int maxx(int a,int b);
+int main()
+&#123;
+	int current;
+	puts(&quot;输入你要裁剪的钢条长度：&quot;);
+	scanf(&quot;%d&quot;,&amp;current);
+	int i;
+	printf(&quot;%d长的钢条最大收益是：%d\n&quot;,current,upToDown(current));
+	printf(&quot;各个长度的收益情况：\n长度：&quot;);
+	for(i&#x3D;0;i&lt;&#x3D;current;i++)
 	&#123;
-		for(j&#x3D;i+1;j&lt;&#x3D;n;j++)
-		&#123;
-			if(a[i]&gt;a[j])
-			&#123;
-				temp&#x3D;a[i];
-				a[i]&#x3D;a[j];
-				a[j]&#x3D;temp;
-			&#125;
-		&#125;
+		printf(&quot;%3d &quot;,i);
 	&#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="时间复杂度分析-2"><a href="#时间复杂度分析-2" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>选择排序类似为冒泡排序的逆过程，与冒泡排序一样，时间复杂度均为O(n^2)。</p>
-<h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><h3 id="简介-3"><a href="#简介-3" class="headerlink" title="简介"></a>简介</h3><p>前述的算法几乎全部都在n^2时间内完成，相对来说非常低效。归并排序是基于算法中最为常用的“分治策略”设计而成，其本质上是将原问题分解成较小的子问题，然后通过求解子问题来间接得到原问题的解。这种模式在C语言中常见的实现方法有函数递归调用以及迭代计算，这里介绍递归法。<br>归并排序算法完全遵循分治模式。直观上其操作如下：</p>
-<ul>
-<li>分解:分解待排序的n个元素的序列成各具n&#x2F;2个元素的两个子序列。</li>
-<li>解决:使用归并排序递归地排序两个子序列。</li>
-<li>合井:合并两个已排序的子序列以产生已排序的答案。</li>
+	puts(&quot;&quot;);
+	printf(&quot;收益：&quot;);
+	for(i&#x3D;0;i&lt;&#x3D;current;i++)
+	&#123;
+		printf(&quot;%3d &quot;,r[i]);
+	&#125;
+&#125; 
+int upToDown(int n) &#x2F;&#x2F;即每次返回的值是当前长度n的最大收益 
+&#123;
+	if(r[n]!&#x3D;0)
+	&#123;
+		return r[n];
+	&#125;		
+	if(n&#x3D;&#x3D;0)
+	&#123;
+		return 0;
+	&#125;
+	int q&#x3D;N[n];	
+	int i;
+	for(i&#x3D;1;i&lt;n;i++)
+	&#123;
+		q&#x3D;maxx(q,r[i]+upToDown(n-i));
+	&#125;
+	r[n]&#x3D;q;
+	return q;
+&#125;
+int maxx(int a,int b)
+&#123;
+	if(a&gt;&#x3D;b)
+	&#123;
+		return a;
+	&#125;
+	else
+	&#123;
+		return b;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以看出，这种动态规划算法是从原问题出发，每次调用自身求解子问题，问题规模由大到小，称之为“自顶向下带备忘机制的动态规划算法”。于是乎，还有另一种叫做“自底向上的动态规划”即为先解决问题规模较小的问题，再往上依次求解问题规模较大的，直至到顶。其实现为：</p>
+<pre class="line-numbers language-none"><code class="language-none">#include&lt;stdio.h&gt;
+int N[11]&#x3D;&#123;0,1,5,8,9,10,17,17,20,24,30&#125;;
+int n[11]&#x3D;&#123;0&#125;;
+int maxx(int a,int b);
+int i,j,current;
+int main()
+&#123;
+	puts(&quot;输入你要裁剪的钢条长度：&quot;);
+	scanf(&quot;%d&quot;,&amp;current);
+	for(i&#x3D;1;i&lt;&#x3D;current;i++)
+	&#123;
+		int q&#x3D;N[i];
+		for(j&#x3D;1;j&lt;&#x3D;i;j++)
+		&#123;
+			q&#x3D;maxx(q,n[j]+n[i-j]);
+		&#125;
+		n[i]&#x3D;q;
+	&#125;
+	printf(&quot;%d长的钢条最大收益是：%d\n&quot;,current,n[current]);
+	printf(&quot;各个长度的收益情况：\n长度：&quot;);
+	for(i&#x3D;0;i&lt;&#x3D;current;i++)
+	&#123;
+		printf(&quot;%3d &quot;,i);
+	&#125;
+	puts(&quot;&quot;);
+	printf(&quot;收益：&quot;);
+	for(i&#x3D;0;i&lt;&#x3D;current;i++)
+	&#123;
+		printf(&quot;%3d &quot;,n[i]);
+	&#125;
+	return 0;
+&#125; 
+int maxx(int a,int b)
+&#123;
+	if(a&gt;&#x3D;b)
+	&#123;
+		return a;
+	&#125;
+	else
+	&#123;
+		return b;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h3><p><img src="https://static01.imgkr.com/temp/ee43f5a7304748bcaa1f8b45e90d4f12.png"></p>
+<h2 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h2><ul>
+<li>首先是普通递归：T(n)&#x3D;1+T(0)+T(1)+T(2)+T(3)+…+T(n-1)，其中“1”为函数的第一次调用，T（0、1……n-1）表示调用规模更小的问题时产生的所有调用次数。用数学归纳法可以求解T(n)&#x3D;2^n。即普通递归运行时间为n的指数函数；</li>
+<li>下面分析动态规划算法：<ul>
+<li>对于自顶向下的动态规划，每次递归时，遇到已经求解的问题便会立即返回，于是规模为n的问题就会递归迭代n次，那么总的次数为1+2+3+…n&#x3D;θ(n^20)。</li>
+<li>对于自底向上的动态规划，我们回归到代码中，i与j为嵌套的两次循环，其时间复杂度自然是规模的二次方，即为θ(n^2)。</li>
 </ul>
-<p>当待排序的序列长度为1时，递归”开始回升”，在这种情况下不要做任何工作，因为长度为1的每个序列都已排好序。</p>
-<h3 id="C语言实现-3"><a href="#C语言实现-3" class="headerlink" title="C语言实现"></a>C语言实现</h3><p>归并排序算法的关键操作是“合并“步骤中两个已排序列的合并。我们通过调用一个辅助过程MERGE来完成合并，函数参数a是一个数组，start、mid和end是数组下标，满足start&lt;&#x3D;mid&lt;end，该过程假设子数组a[start…mid]和[mid+1..end]都已排好序。它合并这两个子数组形成单一的已排好序的子数组并代替当前的子数组A[start..end]。<br>过程MERGE需要θ(n)的时间，其中n&#x3D;end-start+1是待合并元素的总数。它按以下方式工作：回到我们玩扑克牌的例子，假设桌上有两堆牌面朝上的牌，每堆都已排序，最小的牌在顶上。我们希望把这两堆牌合并成单一的排好序的输出堆，牌面朝下地放在桌上。我们的基本步骤包括在牌面朝上的两堆牌的顶上两张牌中选取较小的一张，将该牌从其堆中移开(该堆的顶上将显露一张新牌)并牌面朝下地将该牌放置到输出堆。重复这个步骤，直到一个输人堆为空，这时，我们只是拿起剩余的输人堆并牌面朝下地将该堆放置到输出堆。因为我们只是比较顶上的两张牌，所以计算上每个基本步骤需要常量时间。因为我们最多执行n个基本步骤，所以合并需要θ(n)的时间。</p>
-<pre class="line-numbers language-none"><code class="language-none">void merge(int *a,int start,int mid,int end)
-&#123;
-	int tmp[100];
-	int i&#x3D;start;
-	int j&#x3D;mid+1;
-	int k&#x3D;0;
-	while(i&lt;&#x3D;mid&amp;&amp;j&lt;&#x3D;end)
-	&#123;
-		if(a[i]&lt;a[j])
-		&#123;
-			tmp[k++]&#x3D;a[i++];
-		&#125;
-		else
-		&#123;
-			tmp[k++]&#x3D;a[j++];	
-		&#125;
-	&#125;
-	if(i&lt;&#x3D;mid)
-	&#123;
-		while(i&lt;&#x3D;mid)
-			tmp[k++]&#x3D;a[i++];
-	&#125;
-	if(j&lt;&#x3D;end)
-	&#123;
-		while(j&lt;&#x3D;end)
-			tmp[k++]&#x3D;a[j++];
-	&#125;
-	for(j&#x3D;0,i&#x3D;start;j&lt;k;i++,j++)
-	&#123;
-		a[i]&#x3D;tmp[j];
-	&#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>当然，这只是合并的过程，我们具体的排序过程实现如下：</p>
-<pre class="line-numbers language-none"><code class="language-none">void mergesort(int *a,int start,int end)
-&#123;
-	if(start&gt;&#x3D;end)
-		return;
-	int mid&#x3D;(start+end)&#x2F;2;
-	mergesort(a,start,mid);&#x2F;&#x2F;递归调用
-	mergesort(a,mid+1,end);&#x2F;&#x2F;递归调用
-	merge(a,start,mid,end);&#x2F;&#x2F;合并操作
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>为了更加直观理解这个过程，我们可以以一实例的图示来看：<br><img src="https://static01.imgkr.com/temp/e9e14fdf3da448a2a9d00d32479fa483.png"><br>箭头往上两两合聚即为合并过程。</p>
-<h3 id="时间复杂度分析-3"><a href="#时间复杂度分析-3" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>首先列出递归式：T(n)&#x3D;2T(n&#x2F;2)+θ(n)；<br>然后运用主定理，b&#x3D;a&#x3D;2,f(n)&#x3D;θ(n)&#x3D;θ(n^lb2)，故最终的解即为θ(lgn*n^lb2)&#x3D;θ(nlgn)。</p>
-<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><h3 id="简介-4"><a href="#简介-4" class="headerlink" title="简介"></a>简介</h3><p>a[0]做哨兵，从后或前向中间遍历，保证后面的比他大，前面的比他小，否则将其放在相应位置并转到前或后继续遍历。<br>自然，这个过程也是一种分治策略：</p>
-<ul>
-<li>分解:数组a[start..end]被划分为两个(可能为空)子数组a[start..j-1]和a[j+1..end]，使得a[start..j-1]中的每一个元素都小于等于a[j]，而a[j]也小于等于a[j+1..end]中的每个元素。</li>
-<li>解决:通过递归调用快速排序，对子数组a[start..j-1]和A[j+1..end]进行排序。</li>
-<li>合并:因为子数组都是原址排序的，所以不需要合并操作。</li>
+</li>
 </ul>
-<h3 id="C语言实现-4"><a href="#C语言实现-4" class="headerlink" title="C语言实现"></a>C语言实现</h3><pre class="line-numbers language-none"><code class="language-none">void quick(int *a,int start,int end)
-&#123;
-	int i,j;
-	i&#x3D;start;
-	j&#x3D;end;
-	a[0]&#x3D;a[start];
-	while(i&lt;j)
-	&#123;
-		while(i&lt;j&amp;&amp;a[0]&lt;a[j])
-			j--;
-		if(i&lt;j)
-		&#123;
-			a[i]&#x3D;a[j];
-			i++;
-		&#125;
-		while(i&lt;j&amp;&amp;a[0]&gt;a[i])
-			i++;
-		if(i&lt;j)
-		&#123;
-			a[j]&#x3D;a[i];
-			j--;
-		&#125;
-	&#125;
-	a[i]&#x3D;a[0];
-	if(start&lt;i)
-		quick(a,start,j-1);
-	if(i&lt;end)
-		quick(a,j+1,end);
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="时间复杂度分析-4"><a href="#时间复杂度分析-4" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>快速排序由于分解不均匀，其时间复杂度的分析也要分情况讨论。在最坏情况下，划分产生的子问题分别包含了n-1和0个元素，不难看出，代码中寻找j的过程花费了θ(n)的时间，故递归式为：<br>T(n)&#x3D;T(n-1)+T(0)+θ(n)&#x3D;T(n-1)+θ(n)&#x3D;θ(n^2)<br>在最好情况下，划分的得到的两个子问题规模均不大于n&#x2F;2，T(n)&#x3D;2T(n&#x2F;2)+θ(n)&#x3D;θ(nlgn)(同归并排序)。</p>
-<h2 id="C语言整体实现"><a href="#C语言整体实现" class="headerlink" title="C语言整体实现"></a>C语言整体实现</h2><pre class="line-numbers language-none"><code class="language-none">#include&lt;stdio.h&gt;
-&#x2F;&#x2F;冒泡排序
-void bubble(int *num,int n)
-&#123;
-	int tmp,i,j;
-	for(i&#x3D;0;i&lt;n;i++)
-	&#123;
-		for(j&#x3D;0;j&lt;n-i;j++)
-		&#123;
-			if(num[j]&gt;num[j+1])
-			&#123;
-				tmp &#x3D; num[j];
-				num[j] &#x3D; num[j+1];
-				num[j+1] &#x3D; tmp;
-			&#125;
-		&#125;
-	&#125;
-&#125;
-&#x2F;&#x2F;插入排序
-void insert(int *num,int n)
-&#123;
-	int a[100];
-	int j,i,tmp;
-	for(i&#x3D;1;i&lt;n+1;i++)
-	&#123;
-		a[i]&#x3D;num[i];
-	&#125;
-	for(i&#x3D;2;i&lt;&#x3D;n;i++)
-	&#123;
-		tmp&#x3D;a[i];
-		j&#x3D;i-1;
-		while(j&gt;0&amp;&amp;a[j]&gt;tmp)
-		&#123;
-			a[j+1]&#x3D;a[j];
-			j--;
-		&#125;
-		a[j+1]&#x3D;tmp;
-	&#125;
-	for(i&#x3D;0;i&lt;&#x3D;n;i++)
-	&#123;
-		num[i]&#x3D;a[i];
-	&#125;
-&#125;
-&#x2F;&#x2F;快速排序
-void quick(int *a,int start,int end)
-&#123;
-	int i,j;
-	i&#x3D;start;
-	j&#x3D;end;
-	a[0]&#x3D;a[start];
-	while(i&lt;j)
-	&#123;
-		while(i&lt;j&amp;&amp;a[0]&lt;a[j])
-			j--;
-		if(i&lt;j)
-		&#123;
-			a[i]&#x3D;a[j];
-			i++;
-		&#125;
-		while(i&lt;j&amp;&amp;a[0]&gt;a[i])
-			i++;
-		if(i&lt;j)
-		&#123;
-			a[j]&#x3D;a[i];
-			j--;
-		&#125;
-	&#125;
-	a[i]&#x3D;a[0];
-	if(start&lt;i)
-		quick(a,start,j-1);
-	if(i&lt;end)
-		quick(a,j+1,end);
-&#125;
-&#x2F;&#x2F;选择排序
-void select(int *a,int n)
-&#123;
-	int temp,i,j;
-	for(i&#x3D;1;i&lt;&#x3D;n;i++)
-	&#123;
-		for(j&#x3D;i+1;j&lt;&#x3D;n;j++)
-		&#123;
-			if(a[i]&gt;a[j])
-			&#123;
-				temp&#x3D;a[i];
-				a[i]&#x3D;a[j];
-				a[j]&#x3D;temp;
-			&#125;
-		&#125;
-	&#125;
-&#125;
-&#x2F;&#x2F;归并排序
-void merge(int *a,int start,int mid,int end)
-&#123;
-	int tmp[100];
-	int i&#x3D;start;
-	int j&#x3D;mid+1;
-	int k&#x3D;0;
-	while(i&lt;&#x3D;mid&amp;&amp;j&lt;&#x3D;end)
-	&#123;
-		if(a[i]&lt;a[j])
-		&#123;
-			tmp[k++]&#x3D;a[i++];
-		&#125;
-		else
-		&#123;
-			tmp[k++]&#x3D;a[j++];	
-		&#125;
-	&#125;
-	if(i&lt;&#x3D;mid)
-	&#123;
-		while(i&lt;&#x3D;mid)
-			tmp[k++]&#x3D;a[i++];
-	&#125;
-	if(j&lt;&#x3D;end)
-	&#123;
-		while(j&lt;&#x3D;end)
-			tmp[k++]&#x3D;a[j++];
-	&#125;
-	for(j&#x3D;0,i&#x3D;start;j&lt;k;i++,j++)
-	&#123;
-		a[i]&#x3D;tmp[j];
-	&#125;
-&#125;
-void mergesort(int *a,int start,int end)
-&#123;
-	if(start&gt;&#x3D;end)
-		return;
-	int mid&#x3D;(start+end)&#x2F;2;
-	mergesort(a,start,mid);
-	mergesort(a,mid+1,end);
-	merge(a,start,mid,end);
-&#125;
-void main()
-&#123;
-	int n,i;
-	printf(&quot;请输入数组长度&quot;);
-	scanf(&quot;%d&quot;,&amp;n);
-	int x&#x3D;1;int y;
-	y&#x3D;n;
-	int num[100];
-	printf(&quot;请输入数组内容&quot;);
-	for(i &#x3D; 1;i&lt;&#x3D;n;i++)
-	&#123;
-		scanf(&quot;%d&quot;,&amp;num[i]);
-	&#125;
-	quick(num,x,y);
-	for(i&#x3D;1;i&lt;&#x3D;n;i++)
-		printf(&quot;%d &quot;,num[i]);
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>注意主函数的变化。</p>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>通过对不同算法的分析可以看出，在“排序”这一功能不受影响的前提下，我们完全可以通过设计合理的算法来节省计算机程序的运行时间。在输入数据规模不大时，这样的顾虑或许不值一提，但是在非常大规模的数据运算中，合理的算法运用便可以节省极大的时间，而这也正是算法设计的目的所在。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>通过引入动态规划算法，对于类似钢条切割的一类规划问题，我们可以将时间复杂度从指数级降到多项式（二次方n^2)级，这在输入数据规模很大的情况下可以节省极大的时间，因此动态规划算法的研究很有现实意义。</p>
 
                 
             </div>
@@ -808,7 +726,7 @@ void main()
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://jiahao-g.github.io/2022/04/21/ji-yu-bi-jiao-de-ge-lei-pai-xu-suan-fa-jian-jie-ji-c-yu-yan-shi-xian/">https://jiahao-g.github.io/2022/04/21/ji-yu-bi-jiao-de-ge-lei-pai-xu-suan-fa-jian-jie-ji-c-yu-yan-shi-xian/</a>
+                    <a href="https://jiahao-g.github.io/2022/04/22/dong-tai-gui-hua-suan-fa-de-ying-yong-yu-shi-xian-yi-gang-tiao-qie-ge-wen-ti-wei-li/">https://jiahao-g.github.io/2022/04/22/dong-tai-gui-hua-suan-fa-de-ying-yong-yu-shi-xian-yi-gang-tiao-qie-ge-wen-ti-wei-li/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1021,9 +939,10 @@ void main()
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/04/22/dong-tai-gui-hua-suan-fa-de-ying-yong-yu-shi-xian-yi-gang-tiao-qie-ge-wen-ti-wei-li/">
                     <div class="card-image">
@@ -1041,9 +960,9 @@ void main()
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-04-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-22
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1056,6 +975,7 @@ void main()
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1074,13 +994,13 @@ void main()
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/04/05/bp-shen-jing-wang-luo-suan-fa-jie-jue-qi-you-xin-wan-zhi-jian-ce-wen-ti/">
+                <a href="/2022/04/21/ji-yu-bi-jiao-de-ge-lei-pai-xu-suan-fa-jian-jie-ji-c-yu-yan-shi-xian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="BP神经网络算法解决汽油辛烷值检测问题">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="基于比较的各类排序算法简介及C语言实现">
                         
-                        <span class="card-title">BP神经网络算法解决汽油辛烷值检测问题</span>
+                        <span class="card-title">基于比较的各类排序算法简介及C语言实现</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1091,7 +1011,7 @@ void main()
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-21
                             </span>
                         <span class="publish-author">
                             
